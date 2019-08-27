@@ -1,9 +1,6 @@
 import React from "react";
 import {BrowserRouter as Router, Route, Link, Switch} from "react-router-dom";
-
-function Index() {
-    return <h2>Home</h2>;
-}
+import Home from '../views/home';
 
 function About() {
     return <h2>About</h2>;
@@ -18,7 +15,7 @@ export default class extends React.Component {
         return (
             <Router>
                 <Switch>
-                    <Route exact path="/" component={Index}/>
+                    <Route exact path="/" component={Home}/>
                     <Route
                         path="/dashboard"
                         render={({match: {url}}) => (
@@ -28,7 +25,7 @@ export default class extends React.Component {
                             </>
                         )}
                     />
-                    <Route path="*" component={Index}/>
+                    <Route path="*" component={Home}/>
                 </Switch>
             </Router>
         );
