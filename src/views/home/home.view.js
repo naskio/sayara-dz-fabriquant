@@ -252,10 +252,10 @@ export default class View extends React.PureComponent {
                                 maintenant pour commencer!</DownloadDescription>
                         </div>
                         <div className="d-flex flex-row">
-                            <a href={'#'}>
+                            <a href='https://www.apple.com/fr/ios/app-store/' target="_blank" rel="noopener noreferrer" >
                                 <DownloadIcon src={APP_STORE} className="mr-1 ml-1"/>
                             </a>
-                            <a href={'#'}>
+                            <a href='https://play.google.com/store/apps/' target="_blank" rel="noopener noreferrer" >
                                 <DownloadIcon src={PLAY_STORE} className="mr-1 ml-1"/>
                             </a>
                         </div>

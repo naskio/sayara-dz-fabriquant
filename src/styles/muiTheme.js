@@ -13,8 +13,8 @@ export default createMuiTheme({
         secondary: {
             main: amber[500],
         },
-        white: {
-            main: '#fff',
+        primaryText: {
+            main: purple[500],
         }
     },
 });
