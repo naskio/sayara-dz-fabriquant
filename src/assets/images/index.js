@@ -1,2 +1,12 @@
-export const LOGO = require('./logo.svg');
-export const LOGO_TEXT = require('./logo_text.png');
+export const LOGO = require('./logos/logo.svg');
+export const LOGO_WHITE_AR = require('./logos/logo_white_ar.png');
+export const LOGO_TEXT = require('./logos/logo_text.png');
+export const BACKGROUND = require('./backgrounds/bg.jpg');
+export const BACKGROUND1 = require('./backgrounds/bg1.jpg');
+export const BACKGROUND2 = require('./backgrounds/bg2.jpg');
+export const BACKGROUND3 = require('./backgrounds/bg3.jpg');
+export const BACKGROUND4 = require('./backgrounds/bg4.jpg');
+export const BACKGROUND5 = require('./backgrounds/bg5.jpg');
+export const APP_PUB = require('./home/mobile_app.png');
+export const APP_STORE = require('./home/app-store.svg');
+export const PLAY_STORE = require('./home/google-play.svg');

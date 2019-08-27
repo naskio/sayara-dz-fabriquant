@@ -1,27 +1,30 @@
 import React from "react";
 import {BrowserRouter as Router, Route, Link, Switch} from "react-router-dom";
 import Home from '../views/home';
+import {BASE_NAME} from "../config/config";
 
-function About() {
-    return <h2>About</h2>;
+function Login() {
+    return <h2>Se connecter</h2>;
 }
 
-function Users() {
-    return <h2>topics</h2>;
+function SignUp() {
+    return <h2>S'inscrire</h2>;
 }
 
 export default class extends React.Component {
     render() {
         return (
-            <Router>
+            <Router basename={BASE_NAME}>
                 <Switch>
-                    <Route exact path="/" component={Home}/>
+                    {/*<Route exact path="/" component={Home}/>*/}
+                    <Route path="/inscription" component={SignUp}/>
+                    <Route path="/connexion" component={Login}/>
                     <Route
                         path="/dashboard"
                         render={({match: {url}}) => (
                             <>
-                                <Route path={`${url}/about`} component={About}/>
-                                <Route path={`${url}/topics`} component={Users}/>
+                                <Route path={`${url}/about`} component={Home}/>
+                                <Route path={`${url}/topics`} component={Home}/>
                             </>
                         )}
                     />
