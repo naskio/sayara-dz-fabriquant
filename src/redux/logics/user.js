@@ -15,10 +15,9 @@ export const login = (data) => dispatch => {
             setSessionToken(token);
             if (remember_me) {
                 dispatch(setUserAction({token}));
-            }else {
+            } else {
                 dispatch(setUserAction({token: ''}));
             }
-
         });
 };
 
@@ -26,4 +25,10 @@ export const logout = () => dispatch => {
     setAuthorizationToken();
     setSessionToken();
     dispatch(setUserAction({token: ''}));
+};
+
+export const getProfile = () => dispatch => {
+    return axios.get(API('profile')).then(res => {
+        dispatch(setUserAction(res.data));
+    });
 };

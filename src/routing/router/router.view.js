@@ -3,16 +3,11 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Home from '../../views/home';
 import SignUp from '../../views/signUp';
 import Login from '../../views/login';
+import Dashboard from '../../views/dashboard';
 import {BASE_NAME} from "../../config/config";
 import routes from "../routes";
 import {setAuthorizationToken} from "../../utils/axios";
 import {Helmet} from 'react-helmet';
-
-function Hello(props) {
-    // {props.match.param.page}
-    const {params: {page = 'home'}} = props.match;
-    return (<div>Hello Dashboard from {page}</div>);
-}
 
 
 export default class extends React.PureComponent {
@@ -50,8 +45,8 @@ export default class extends React.PureComponent {
                             <Route path="*" component={Home}/>
                         </Switch>) : (
                             <Switch>
-                                <Route path={`/:page(${routes.map(item => item.id).join('|')})?`} component={Hello}/>
-                                <Route path="*" component={Home}/>
+                                <Route path={`/:page(${routes.map(item => item.id).join('|')})?`} component={Dashboard}/>
+                                <Route path="*" component={Dashboard}/>
                             </Switch>)
                     }
                 </Router>
