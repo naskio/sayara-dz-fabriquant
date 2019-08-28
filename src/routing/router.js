@@ -1,14 +1,11 @@
 import React from "react";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Home from '../views/home';
+import SignUp from '../views/signUp';
 import {BASE_NAME} from "../config/config";
 
 function Login() {
     return <h2>Se connecter</h2>;
-}
-
-function SignUp() {
-    return <h2>S'inscrire</h2>;
 }
 
 export default class extends React.Component {

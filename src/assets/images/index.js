@@ -1,5 +1,6 @@
 export const LOGO = require('./logos/logo.svg');
 export const LOGO_WHITE_AR = require('./logos/logo_white_ar.png');
+export const LOGO_WHITE = require('./logos/logo_white.png');
 export const LOGO_TEXT = require('./logos/logo_text.png');
 export const BACKGROUND = require('./backgrounds/bg.jpg');
 export const BACKGROUND1 = require('./backgrounds/bg1.jpg');

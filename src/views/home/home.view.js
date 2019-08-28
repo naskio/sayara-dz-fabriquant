@@ -202,9 +202,11 @@ export default class View extends React.PureComponent {
                                 Se Connecter
                             </Button>
                         </Link>
-                        <Button href='/inscription' color="primary" variant="contained" className="ml-2" size="large">
-                            S'inscrire
-                        </Button>
+                        <Link to='/inscription'>
+                            <Button color="primary" variant="contained" className="ml-2" size="large">
+                                S'inscrire
+                            </Button>
+                        </Link>
                     </Header>
                 </AppBar>
                 <Banner className="d-flex flex-row justify-content-end align-items-center">
@@ -213,10 +215,12 @@ export default class View extends React.PureComponent {
                             Gérez vos stocks, commandes et ventes
                         </WhiteTitle>
                         <div>
-                            <Fab href='/inscription' variant="extended" size="large">
-                                Rejoignez-nous
-                                <ChevronRight/>
-                            </Fab>
+                            <Link to='/inscription'>
+                                <Fab variant="extended" size="large">
+                                    Rejoignez-nous
+                                    <ChevronRight/>
+                                </Fab>
+                            </Link>l
                         </div>
                     </div>
                     <div className="col-1"/>
@@ -252,10 +256,10 @@ export default class View extends React.PureComponent {
                                 maintenant pour commencer!</DownloadDescription>
                         </div>
                         <div className="d-flex flex-row">
-                            <a href='https://www.apple.com/fr/ios/app-store/' target="_blank" rel="noopener noreferrer" >
+                            <a href='https://www.apple.com/fr/ios/app-store/' target="_blank" rel="noopener noreferrer">
                                 <DownloadIcon src={APP_STORE} className="mr-1 ml-1"/>
                             </a>
-                            <a href='https://play.google.com/store/apps/' target="_blank" rel="noopener noreferrer" >
+                            <a href='https://play.google.com/store/apps/' target="_blank" rel="noopener noreferrer">
                                 <DownloadIcon src={PLAY_STORE} className="mr-1 ml-1"/>
                             </a>
                         </div>
@@ -295,29 +299,31 @@ export default class View extends React.PureComponent {
                         }
                     </div>
                 </Section>
-                <Footer className="row p-5">
-                    <div className="col-3 d-flex flex-column justify-content-center align-items-center">
-                        {/*<FooterText>Sayara Dz</FooterText>*/}
-                        <Logo src={LOGO_WHITE_AR}/>
-                        <FooterText>© TrendTech 2019</FooterText>
-                    </div>
-                    <div className="col-2 d-flex flex-column justify-content-center">
-                        <FooterA href={'#'} className="p-2">À propos</FooterA>
-                        <FooterA href={'#'} className="p-2">Contactez-nous</FooterA>
-                        <FooterA href={'#'} className="p-2">Conditions d'utilisation</FooterA>
-                    </div>
-                    <div className="col-4 d-flex flex-column justify-content-center">
-                        <FooterA href={'#'} className="p-2 d-flex align-items-center"><FaFacebook/><span
-                            className="ml-2">Facebook</span></FooterA>
-                        <FooterA href={'#'} className="p-2 d-flex align-items-center"><FaTwitter/><span
-                            className="ml-2">Twitter</span></FooterA>
-                        <FooterA href={'#'} className="p-2 d-flex align-items-center"><FaInstagram/><span
-                            className="ml-2">Instagram</span></FooterA>
-                    </div>
-                    <div className="col-3">
-                        <FooterText>Alger Oued Smar,، 16309، Oued Smar 16309</FooterText>
-                        <FooterText>+213 23 93 91 32</FooterText>
-                        <FooterText>contact@sayaradz.com</FooterText>
+                <Footer className="container-fluid">
+                    <div className="row pt-5 pb-5">
+                        <div className="col-3 d-flex flex-column justify-content-center align-items-center">
+                            {/*<FooterText>Sayara Dz</FooterText>*/}
+                            <Logo src={LOGO_WHITE_AR}/>
+                            <FooterText>© TrendTech 2019</FooterText>
+                        </div>
+                        <div className="col-2 d-flex flex-column justify-content-center">
+                            <FooterA href={'#'} className="p-2">À propos</FooterA>
+                            <FooterA href={'#'} className="p-2">Contactez-nous</FooterA>
+                            <FooterA href={'#'} className="p-2">Conditions d'utilisation</FooterA>
+                        </div>
+                        <div className="col-3 d-flex flex-column justify-content-center">
+                            <FooterA href={'#'} className="p-2 d-flex align-items-center"><FaFacebook/><span
+                                className="ml-2">Facebook</span></FooterA>
+                            <FooterA href={'#'} className="p-2 d-flex align-items-center"><FaTwitter/><span
+                                className="ml-2">Twitter</span></FooterA>
+                            <FooterA href={'#'} className="p-2 d-flex align-items-center"><FaInstagram/><span
+                                className="ml-2">Instagram</span></FooterA>
+                        </div>
+                        <div className="col-4">
+                            <FooterText>Alger Oued Smar,، 16309، Oued Smar 16309</FooterText>
+                            <FooterText>+213 23 93 91 32</FooterText>
+                            <FooterText>contact@sayaradz.com</FooterText>
+                        </div>
                     </div>
                 </Footer>
             </Container>
