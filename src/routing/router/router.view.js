@@ -31,8 +31,8 @@ export default class extends React.PureComponent {
                     {
                         !token ? (<Switch>
                             {/*<Route exact path="/" component={Home}/>*/}
-                            <Route path="/inscription" component={SignUp}/>
-                            <Route path="/connexion" component={Login}/>
+                            <Route path="/register" component={SignUp}/>
+                            <Route path="/login" component={Login}/>
                             {/*<Route*/}
                             {/*    path="/dashboard"*/}
                             {/*    render={({match: {url}}) => (*/}

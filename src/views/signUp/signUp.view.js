@@ -325,7 +325,7 @@ export default class View extends React.PureComponent {
                                     }}
                                 />)
                         }
-                        <UILink component={Link} to='/connexion' color="inherit" className="mt-3 mb-3">
+                        <UILink component={Link} to='/login' color="inherit" className="mt-3 mb-3">
                             Vous avez déjà un compte? Se connecter.
                         </UILink>
                     </Paper>

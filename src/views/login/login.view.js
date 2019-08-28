@@ -188,7 +188,7 @@ export default class View extends React.PureComponent {
                                         {message}
                                     </Typography>)
                                 }
-                                <UILink component={Link} to='/inscription' color="inherit" className="mt-5 mb-3">
+                                <UILink component={Link} to='/register' color="inherit" className="mt-5 mb-3">
                                     Vous n'avez pas un compte? S'inscrire.
                                 </UILink>
                             </form>);

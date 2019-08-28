@@ -196,13 +196,13 @@ export default class View extends React.PureComponent {
                                 </A>
                             )
                         }
-                        <Link to='/connexion'>
+                        <Link to='/login'>
                             <Button
                                 color="primary" variant="outlined" className="mr-2" size="large">
                                 Se Connecter
                             </Button>
                         </Link>
-                        <Link to='/inscription'>
+                        <Link to='/register'>
                             <Button color="primary" variant="contained" className="ml-2" size="large">
                                 S'inscrire
                             </Button>
@@ -215,7 +215,7 @@ export default class View extends React.PureComponent {
                             Gérez vos stocks, commandes et ventes
                         </WhiteTitle>
                         <div>
-                            <Link to='/inscription'>
+                            <Link to='/register'>
                                 <Fab variant="extended" size="large">
                                     Rejoignez-nous
                                     <ChevronRight/>
