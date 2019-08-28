@@ -7,12 +7,13 @@ import thunk from "redux-thunk";
 import storage from 'redux-persist/lib/storage';
 import {persistStore, persistReducer} from "redux-persist";
 import {name as appName} from "../../package.json";
+import {IS_DEV} from "../config/config";
 
 const persistConfig = {
     key: "root",
     keyPrefix: appName,
     storage: storage,
-    whitelist: [],
+    whitelist: ['signUp'],
     // blacklists to ignore some reducers from persist
     // blacklist: [],
     // stateReconciler: autoMergeLevel2,
@@ -23,8 +24,7 @@ const middlewares = [
     // promise(),
 ];
 
-const dev = !process.env.NODE_ENV || process.env.NODE_ENV === 'development';
-if (dev === true) {
+if (IS_DEV === true) {
     middlewares.push(logger);
 }
 

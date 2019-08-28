@@ -4,4 +4,7 @@ export default {
         "password": "",
         "id": 0
     },
+    signUp: {
+        isSignedUp: false,
+    },
 };
