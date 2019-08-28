@@ -220,7 +220,7 @@ export default class View extends React.PureComponent {
                                     Rejoignez-nous
                                     <ChevronRight/>
                                 </Fab>
-                            </Link>l
+                            </Link>
                         </div>
                     </div>
                     <div className="col-1"/>
