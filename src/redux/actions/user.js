@@ -1,9 +1,9 @@
 import {SET_USER, RESET_USER} from "../actionTypes";
 
 
-export const setUserAction = (user) => ({
+export const setUserAction = (payload) => ({
     type: SET_USER,
-    payload: user,
+    payload,
 });
 
 export const resetUserAction = () => ({

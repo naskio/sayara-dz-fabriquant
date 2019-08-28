@@ -5,6 +5,14 @@ export const BASE_NAME = IS_DEV ? '' : '/sayara-dz-fabriquant';
 // export const API = 'https://siyara-dz-backend-production.herokuapp.com';
 const URL = 'https://siyara-dz-backend-staging.herokuapp.com';
 
-export const API = `${URL}/api`;
+export const API = (model = undefined, id = undefined) => {
+    if (model && id) {
+        return `${URL}/api/${model}/${id}/`;
+    }
+    if (model) {
+        return `${URL}/api/${model}/`;
+    }
+    return `${URL}/api/`;
+};
 
 

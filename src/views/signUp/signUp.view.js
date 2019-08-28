@@ -119,11 +119,11 @@ export default class View extends React.PureComponent {
                                     initialValues={initialValues}
                                     validationSchema={validationSchema}
                                     onSubmit={(data, {setSubmitting}) => {
+                                        this.setState({message: ''});
                                         submit(data)
                                             .catch(() => {
                                                 this.setState({message: 'Une erreur inconnue est servenue (server)'});
-                                                setSubmitting(false);
-                                            });
+                                            }).finally(() => setSubmitting(false));
                                     }}
                                     render={props => {
 

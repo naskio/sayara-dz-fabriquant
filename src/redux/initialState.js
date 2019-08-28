@@ -1,8 +1,10 @@
 export default {
+    config: {
+        remember_me: false,
+    },
     user: {
-        "username": "",
-        "password": "",
-        "id": 0
+        id: 0,
+        token: "",
     },
     signUp: {
         isSignedUp: false,
