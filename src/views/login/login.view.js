@@ -14,9 +14,9 @@ import {
     CircularProgress,
     Typography,
     FormControlLabel,
-    Checkbox
+    Checkbox,
 } from "@material-ui/core";
-import {Email, Lock} from "@material-ui/icons";
+import { Email, Lock} from "@material-ui/icons";
 
 
 const Section = styled.section`
@@ -105,7 +105,9 @@ export default class View extends React.PureComponent {
                                   className="d-flex flex-column justify-content-center align-items-center"
                             >
                                 <Title className="m-0">Se connecter</Title>
-                                <Logo src={LOGO}/>
+                                <Link to='/'>
+                                    <Logo src={LOGO}/>
+                                </Link>
                                 <Description>Bienvenue sur votre tableau de bord.</Description>
                                 <TextField
                                     id="username"
