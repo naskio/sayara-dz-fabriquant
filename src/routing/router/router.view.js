@@ -30,7 +30,8 @@ export default class extends React.PureComponent {
                 <Helmet>
                     <title>{title}</title>
                 </Helmet>
-                <Router basename={BASE_NAME}>
+                {/*<Router basename={BASE_NAME}>*/}
+                <Router basename='/'>
                     {
                         !token ? (<Switch>
                             {/*<Route exact path="/" component={Home}/>*/}
