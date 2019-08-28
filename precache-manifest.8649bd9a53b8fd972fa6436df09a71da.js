@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "d85f38a2e82f0a5782b45b34a55e4e93",
+    "revision": "f68db964537be60efd10044a433fb1f5",
     "url": "/sayara-dz-fabriquant/index.html"
   },
   {
-    "revision": "9931824aa664abfd7da9",
+    "revision": "4d7bfa7290b0ebc72d5f",
     "url": "/sayara-dz-fabriquant/static/css/2.32bbf376.chunk.css"
   },
   {
-    "revision": "4b4c1e183f07d19181dd",
+    "revision": "faa19f9cf1a820f6306d",
     "url": "/sayara-dz-fabriquant/static/css/main.60c276da.chunk.css"
   },
   {
-    "revision": "9931824aa664abfd7da9",
-    "url": "/sayara-dz-fabriquant/static/js/2.00767227.chunk.js"
+    "revision": "4d7bfa7290b0ebc72d5f",
+    "url": "/sayara-dz-fabriquant/static/js/2.c5d588d6.chunk.js"
   },
   {
-    "revision": "4b4c1e183f07d19181dd",
-    "url": "/sayara-dz-fabriquant/static/js/main.36fb6662.chunk.js"
+    "revision": "faa19f9cf1a820f6306d",
+    "url": "/sayara-dz-fabriquant/static/js/main.709a720e.chunk.js"
   },
   {
     "revision": "4ed25d9da19ee73831ab",
