@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/sayara-dz-fabriquant/precache-manifest.9f81983a45e86cc1f8eb5215cf471bb8.js"
+  "/sayara-dz-fabriquant/precache-manifest.a6a6c7e4271541092c7469760b914d90.js"
 );
 
 self.addEventListener('message', (event) => {
