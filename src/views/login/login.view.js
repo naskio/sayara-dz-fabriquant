@@ -16,7 +16,7 @@ import {
     FormControlLabel,
     Checkbox,
 } from "@material-ui/core";
-import { Email, Lock} from "@material-ui/icons";
+import {Email, Lock} from "@material-ui/icons";
 
 
 const Section = styled.section`
@@ -62,7 +62,7 @@ export default class View extends React.PureComponent {
     }
 
     render() {
-        const {submit} = this.props;
+        const {submit,history} = this.props;
         const {message} = this.state;
         return <Section className="container-fluid d-flex flex-column justify-content-center align-items-center">
             <Paper className="col-10 col-md-8 col-lg-6 col-xl-4 p-5">
@@ -71,7 +71,9 @@ export default class View extends React.PureComponent {
                     validationSchema={validationSchema}
                     onSubmit={(data, {setSubmitting}) => {
                         this.setState({message: ''});
-                        submit(data).catch((err) => {
+                        submit(data).then(() => {
+                            history.push("/");
+                        }).catch((err) => {
                             if (err && err.response) {
                                 const {status} = err.response;
                                 if (status === 400) {

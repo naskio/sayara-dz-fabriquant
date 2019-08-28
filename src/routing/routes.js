@@ -1,7 +1,14 @@
-export default {
-    HOME: "Home",
-    ABOUT: "About",
-    PLAYLISTS: "Playlists",
-    DEDICATION: "Dedication",
-    APP: "App"
-};
+export default [
+    {
+        id: 'home',
+        label: 'Accueil',
+        icon: '/img/car0.png',
+        component: {},
+    },
+    {
+        id: 'modeles',
+        label: 'Modèles',
+        icon: '/img/car0.png',
+        component: {},
+    },
+];

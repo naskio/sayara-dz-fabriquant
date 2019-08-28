@@ -13,7 +13,7 @@ const persistConfig = {
     key: "root",
     keyPrefix: appName,
     storage: storage,
-    whitelist: ['config', 'signUp'],
+    whitelist: ['config', 'signUp','user'],
     // blacklists to ignore some reducers from persist
     // blacklist: [],
     // stateReconciler: autoMergeLevel2,
@@ -33,5 +33,6 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 export default () => {
     let store = createStore(persistedReducer, applyMiddleware(...middlewares));
     let persistor = persistStore(store);
+    // persistor.purge();
     return {store, persistor};
 };
