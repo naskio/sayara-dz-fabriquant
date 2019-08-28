@@ -118,10 +118,11 @@ export default class View extends React.PureComponent {
                                 (<Formik
                                     initialValues={initialValues}
                                     validationSchema={validationSchema}
-                                    onSubmit={(data) => {
+                                    onSubmit={(data, {setSubmitting}) => {
                                         submit(data)
-                                            .catch((err) => {
-                                                this.setState({message: 'Une erreur inconnue est servenue'})
+                                            .catch(() => {
+                                                this.setState({message: 'Une erreur inconnue est servenue (server)'});
+                                                setSubmitting(false);
                                             });
                                     }}
                                     render={props => {

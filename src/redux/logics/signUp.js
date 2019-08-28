@@ -4,8 +4,7 @@ import {setSignUpAction} from "../actions/signUp";
 
 export const createSubscription = (data) => dispatch => {
     return axios.post(`${API}/subscription/`, data)
-        .then(res => {
-            console.log(res);
+        .then(() => {
             dispatch(setSignUpAction({isSignedUp: true}));
         });
 };
