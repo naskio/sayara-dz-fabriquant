@@ -48,6 +48,14 @@ class View extends React.PureComponent {
         };
     }
 
+    componentDidUpdate(prevProps, prevStats, snapshot) {
+        if (prevProps.match.params.page !== this.props.match.params.page) {
+            const {setTitle, match} = this.props;
+            const {params: {page = Object.entries(routes)[0][0]}} = match;
+            setTitle(`Sayara Dz - ${routes[page].label}`);
+        }
+    }
+
     componentDidMount() {
         const {token} = this.props;
         if (!token) {
@@ -55,8 +63,11 @@ class View extends React.PureComponent {
         }
         setAuthorizationToken(token);
 
+        const {getProfile, match, setTitle} = this.props;
+        const {params: {page = Object.entries(routes)[0][0]}} = match;
+        setTitle(`Sayara Dz - ${routes[page].label}`);
+
         // TODO: make requests here
-        const {getProfile} = this.props;
         getProfile();
     }
 
@@ -131,7 +142,7 @@ class View extends React.PureComponent {
                         >
                             <MenuList style={{color: 'black', width: '25vw', maxHeight: '25vw', overflowY: 'scroll'}}>
                                 <Typography variant="subtitle1" style={{opacity: 0.5, textAlign: 'center'}}>
-                                    Pas de nouvelles demandes.
+                                    Pas de nouvelles notifications.
                                 </Typography>
                             </MenuList>
                         </PopUpList>

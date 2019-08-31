@@ -1,3 +1,3 @@
-import View from './home.view';
+import Reduxed from './home.redux';
 
-export default View;
+export default Reduxed;

@@ -61,8 +61,13 @@ export default class View extends React.PureComponent {
         this.state = {message: ''};
     }
 
+    componentDidMount() {
+        const {setTitle} = this.props;
+        setTitle(`Sayara Dz - Se connecter`);
+    }
+
     render() {
-        const {submit,history} = this.props;
+        const {submit, history} = this.props;
         const {message} = this.state;
         return <Section className="container-fluid d-flex flex-column justify-content-center align-items-center">
             <Paper className="col-10 col-md-8 col-lg-6 col-xl-4 p-5">

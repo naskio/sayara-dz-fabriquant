@@ -84,6 +84,11 @@ export default class View extends React.PureComponent {
         this.state = {message: ''};
     }
 
+    componentDidMount() {
+        const {setTitle} = this.props;
+        setTitle(`Sayara Dz - Demande d'inscription`);
+    }
+
     render() {
         const {isSignedUp, submit} = this.props;
         const {message} = this.state;

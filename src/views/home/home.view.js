@@ -168,6 +168,11 @@ export default class View extends React.PureComponent {
         });
     }
 
+    componentDidMount() {
+        const {setTitle} = this.props;
+        setTitle(`Sayara Dz - Vendre vos voitures en ligne !`);
+    }
+
 
     scrollTo = (id) => (e) => {
         e.preventDefault();
