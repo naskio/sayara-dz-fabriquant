@@ -1,6 +1,5 @@
 import {connect} from "react-redux";
 import View from "./router.view";
-import {logout} from "../../redux/logics/user";
 import {getSessionToken} from "../../utils/session";
 
 const mapStateToProps = state => ({
@@ -8,11 +7,11 @@ const mapStateToProps = state => ({
     title: state.config.title,
 });
 
-const mapDispatchToProps = dispatch => ({
-    logout: () => dispatch(logout()),
-});
+// const mapDispatchToProps = dispatch => ({
+//     logout: () => dispatch(logout()),
+// });
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    // mapDispatchToProps
 )(View);

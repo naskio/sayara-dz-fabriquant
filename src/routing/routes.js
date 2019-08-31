@@ -1,53 +1,50 @@
-export default [
-    {
-        id: 'home',
+import React from "react";
+import {
+    DirectionsCar as CarIcon,
+} from "@material-ui/icons";
+
+export default {
+    home: {
         label: 'Accueil',
-        icon: '',
-        component: {},
+        icon: CarIcon,
+        component: (props) => (<div>Hello home</div>),
     },
-    {
-        id: 'orders',
+    orders: {
         label: 'Commandes',
-        icon: '',
-        component: {},
+        icon: CarIcon,
+        component: (props) => (<div>Hello Orders</div>),
     },
-    {
-        id: 'models',
+    models: {
         label: 'Modèles',
-        icon: '',
-        component: {},
+        icon: CarIcon,
+        component: (props) => (<div>Hello models</div>),
     },
-    {
-        id: 'versions',
+    versions: {
         label: 'Versions',
-        icon: '',
-        component: {},
+        icon: CarIcon,
+        component: (props) => (<div>Hello Versions</div>),
     },
-    {
-        id: 'stock',
+    stock: {
         label: 'Stock',
-        icon: '',
-        component: {},
+        icon: CarIcon,
+        component: (props) => (<div>Hello Stock</div>),
     },
-    {
-        id: 'colors',
+    colors: {
         label: 'Couleurs',
-        icon: '',
-        component: {},
+        icon: CarIcon,
+        component: (props) => (<div>Hello Colors</div>),
     },
-    {
-        id: 'options',
+    options: {
         label: 'Options',
-        icon: '',
-        component: {},
+        icon: CarIcon,
+        component: (props) => (<div>Hello options</div>),
     },
-    {
-        id: 'simulation',
+    simulation: {
         label: 'Simulation du prix',
-        icon: '',
-        component: {},
+        icon: CarIcon,
+        component: (props) => (<div>Hello Simulation</div>),
     },
-];
+};
 
 /*
 Features:

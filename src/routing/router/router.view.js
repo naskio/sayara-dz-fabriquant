@@ -1,27 +1,19 @@
 import React from "react";
 import {
-    // BrowserRouter as Router,
-    HashRouter as Router,
-    Route, Switch} from "react-router-dom";
+    BrowserRouter as Router,
+    // HashRouter as Router,
+    Route, Switch
+} from "react-router-dom";
 import Home from '../../views/home';
 import SignUp from '../../views/signUp';
 import Login from '../../views/login';
 import Dashboard from '../../views/dashboard';
 import {BASE_NAME} from "../../config/config";
 import routes from "../routes";
-import {setAuthorizationToken} from "../../utils/axios";
-import {Helmet} from 'react-helmet';
+import {Helmet} from 'react-helmet-async';
 
 
 export default class extends React.PureComponent {
-    componentDidMount() {
-
-        const {token} = this.props;
-        if (!token) {
-            return;
-        }
-        setAuthorizationToken(token);
-    }
 
     render() {
         const {token, title} = this.props;
@@ -30,8 +22,8 @@ export default class extends React.PureComponent {
                 <Helmet>
                     <title>{title}</title>
                 </Helmet>
-                {/*<Router basename={BASE_NAME}>*/}
-                <Router basename='/'>
+                <Router basename={BASE_NAME}>
+                {/*<Router basename='/'>*/}
                     {
                         !token ? (<Switch>
                             {/*<Route exact path="/" component={Home}/>*/}
@@ -49,7 +41,8 @@ export default class extends React.PureComponent {
                             <Route path="*" component={Home}/>
                         </Switch>) : (
                             <Switch>
-                                <Route path={`/:page(${routes.map(item => item.id).join('|')})?`} component={Dashboard}/>
+                                <Route path={`/:page(${Object.entries(routes).map(([key]) => key).join('|')})?`}
+                                       component={Dashboard}/>
                                 <Route path="*" component={Dashboard}/>
                             </Switch>)
                     }

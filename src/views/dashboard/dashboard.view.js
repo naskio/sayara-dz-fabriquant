@@ -7,83 +7,210 @@ import {
     Drawer,
     Divider,
     ListItem,
-    // ListItemIcon,
-    ListItemText
+    ListItemIcon,
+    ListItemText,
+    CssBaseline,
+    List,
+    Tooltip,
+    Badge,
 } from "@material-ui/core";
+import classNames from 'classnames';
+import {withStyles} from '@material-ui/core/styles';
+import styles from '../../styles/material_ui/dashboard.style';
 import {Link} from 'react-router-dom';
-import {Menu as MenuIcon, ExitToApp} from "@material-ui/icons";
+import {
+    Menu as MenuIcon,
+    ExitToApp as ExitToAppIcon,
+    ChevronLeft as ChevronLeftIcon,
+    ChevronRight as ChevronRightIcon,
+    Notifications as NotificationsIcon,
+} from "@material-ui/icons";
 import routes from "../../routing/routes";
 import styled from "styled-components";
 import {LOGO} from "../../assets/images";
+import ConfirmationDialog from '../../components/dashboard/confirmationDialog';
+import PopUpList from '../../components/dashboard/popupList';
+import MenuList from "@material-ui/core/MenuList";
+import {setAuthorizationToken} from "../../utils/axios";
 
 const Logo = styled.img`
   height: 8rem;
   object-fit: contain;
 `;
 
-
-export default class View extends React.PureComponent {
-    componentDidMount() {
-        // TODO: make requests here
+class View extends React.PureComponent {
+    constructor(props) {
+        super(props);
+        this.state = {
+            openDrawer: true,
+            openLogoutDialog: false,
+            openPopupNotifs: false,
+        };
     }
+
+    componentDidMount() {
+        const {token} = this.props;
+        if (!token) {
+            return;
+        }
+        setAuthorizationToken(token);
+
+        // TODO: make requests here
+        const {getProfile} = this.props;
+        getProfile();
+    }
+
+    toggleDrawer = () => {
+        const {openDrawer} = this.state;
+        this.setState({openDrawer: !openDrawer});
+    };
+
+    toggleLogoutDialog = () => {
+        const {openLogoutDialog} = this.state;
+        this.setState({openLogoutDialog: !openLogoutDialog});
+    };
+
+    togglePopupNotifs = () => {
+        const {openPopupNotifs} = this.state;
+        this.setState({openPopupNotifs: !openPopupNotifs});
+    };
+
+    handleClosePopupNotifs = event => {
+        if (this.anchorEl && this.anchorEl.contains(event.target)) {
+            return;
+        }
+        this.setState({openPopupNotifs: false});
+    };
 
     render() {
-        const {match, logout} = this.props;
-        const {params: {page = 'home'}} = match;
-        return (<div>
-            <AppBar
-                color="inherit"
-                position="fixed"
-            >
-                <Toolbar>
-                    <div className="container-fluid d-flex flex-row justify-content-end">
-                    {/*<div>*/}
-                    {/*    <IconButton*/}
-                    {/*        color="inherit"*/}
-                    {/*        aria-label="Open drawer"*/}
-                    {/*        // onClick={handleDrawerOpen}*/}
-                    {/*        // className={classNames(classes.menuButton, open && classes.hide)}*/}
-                    {/*    >*/}
-                    {/*        <MenuIcon/>*/}
-                    {/*    </IconButton>*/}
-                    {/*    <Typography>Hello World</Typography>*/}
-                    {/*</div>*/}
-                    <IconButton
-                        color="inherit"
-                        aria-label="Open drawer"
-                        onClick={logout}
-                    >
-                        <ExitToApp/>
-                    </IconButton>
-                    </div>
-                </Toolbar>
-            </AppBar>
-            <Drawer
-                variant="persistent"
-                color="primary"
-                open
-            >
-                <Logo src={LOGO} className="m-5"/>
-                <Divider/>
-                {
-                    routes.map(item => (
-                        <ListItem
-                            button
-                            component={Link}
-                            to={`/${item.id}`}
-                            selected={page === `${item.id}`}
-                            key={item.id}
+        const {match, logout, classes} = this.props;
+        const {openDrawer, openLogoutDialog, openPopupNotifs} = this.state;
+        const {params: {page = Object.entries(routes)[0][0]}} = match;
+        const popupNotifsId = openPopupNotifs ? 'popup-notifications-id' : undefined;
+
+        return (
+            <div className={classes.root}>
+                <CssBaseline/>
+                {/*Header*/}
+                <AppBar position="absolute"
+                        className={classNames(classes.appBar, openDrawer && classes.appBarShift)}
+                >
+                    <Toolbar disableGutters={!openDrawer} className={classes.toolbar}>
+                        <IconButton
+                            color="inherit"
+                            aria-label="Open drawer"
+                            onClick={this.toggleDrawer}
+                            className={classNames(classes.menuButton, openDrawer && classes.menuButtonHidden)}
                         >
-                            {/*<ListItemIcon>*/}
-                            {/*    <img src={item.icon} alt="menu" className={classes.icon} />*/}
-                            {/*</ListItemIcon>*/}
-                            <ListItemText primary={item.label}/>
-                        </ListItem>
-                    ))
-                }
-                {/*<Divider/>*/}
-                {/*<Typography>Hello world!</Typography>*/}
-            </Drawer>
-        </div>);
+                            <MenuIcon/>
+                        </IconButton>
+                        <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+                            {routes[page].label}
+                        </Typography>
+
+                        <IconButton
+                            color="inherit"
+                            aria-haspopup="true"
+                            buttonRef={node => {
+                                this.anchorEl = node;
+                            }}
+                            aria-owns={popupNotifsId}
+                            onClick={this.togglePopupNotifs}
+                        >
+                            <Badge badgeContent={0} color="secondary">
+                                <NotificationsIcon/>
+                            </Badge>
+                        </IconButton>
+
+                        {/*PopUp Notifications*/}
+                        <PopUpList
+                            open={openPopupNotifs}
+                            anchorEl={this.anchorEl}
+                            handleClose={this.handleClosePopupNotifs}
+                            id={popupNotifsId}
+                        >
+                            <MenuList style={{color: 'black', width: '25vw', maxHeight: '25vw', overflowY: 'scroll'}}>
+                                <Typography variant="subtitle1" style={{opacity: 0.5, textAlign: 'center'}}>
+                                    Pas de nouvelles demandes.
+                                </Typography>
+                            </MenuList>
+                        </PopUpList>
+
+                        <IconButton color="inherit" onClick={this.toggleLogoutDialog}>
+                            <ExitToAppIcon/>
+                        </IconButton>
+                        <ConfirmationDialog
+                            open={openLogoutDialog}
+                            title="Confirmation de deconnexion"
+                            content="Êtes-vous sûr de vouloir vous déconnecter ?"
+                            handleClose={this.toggleLogoutDialog}
+                            handleAgree={logout}
+                            handleDisagree={this.toggleLogoutDialog}
+                        />
+                    </Toolbar>
+                </AppBar>
+
+                {/*Navigation Drawer*/}
+                <Drawer
+                    variant="permanent"
+                    classes={{
+                        paper: classNames(classes.drawerPaper, !openDrawer && classes.drawerPaperClose),
+                    }}
+                    open={openDrawer}
+                >
+                    <div className={classes.toolbarIcon}>
+                        {/*TODO: add logo company here*/}
+                        <IconButton onClick={this.toggleDrawer}>
+                            {
+                                openDrawer ? <ChevronLeftIcon/> : <ChevronRightIcon/>
+                            }
+                        </IconButton>
+                    </div>
+                    <List>
+                        <Divider/>
+                        {
+                            Object.entries(routes).map(([key, item]) => {
+                                const selected = page === key;
+                                return (
+                                    <ListItem
+                                        button
+                                        component={Link}
+                                        to={`/${key}`}
+                                        selected={selected}
+                                        key={key}
+                                        // disabled={selected}
+                                    >
+                                        <ListItemIcon>
+                                            <Tooltip title={item.label}>
+                                                <item.icon color={selected ? 'secondary' : 'inherit'}/>
+                                            </Tooltip>
+                                        </ListItemIcon>
+                                        <ListItemText primary={item.label}/>
+                                    </ListItem>
+                                )
+                            })
+                        }
+                        <Divider/>
+                        {
+                            openDrawer && (
+                                <Link to='/'>
+                                    <Logo src={LOGO} className="m-5"/>
+                                </Link>
+                            )
+                        }
+                    </List>
+                </Drawer>
+
+                {/*Main Content*/}
+                <main className={classes.content}>
+                    <div className={classes.appBarSpacer}/>
+                    {
+                        React.createElement(routes[page].component)
+                    }
+                </main>
+            </div>
+        );
     }
 }
+
+export default withStyles(styles)(View)
