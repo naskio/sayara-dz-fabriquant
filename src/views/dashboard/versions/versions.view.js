@@ -17,6 +17,7 @@ import SnackBar from '../../../components/dashboard/snackbar';
 import ConfirmationDialog from "../../../components/dashboard/confirmationDialog";
 import Logo from '../../../components/Logo';
 import ImageDialog from "../../../components/dashboard/imageDialog";
+import {catcher} from "../../../utils/catcher";
 
 // TODO: add specifications + update specifications + add Options
 export default class View extends React.Component {
@@ -81,9 +82,7 @@ export default class View extends React.Component {
             .then(res => {
                 this.showSnackBar(`Version ${res.nom} a été créé avec succès.`, 'success');
             })
-            .catch(() => {
-                this.showSnackBar('Une erreur inconnue est servenue (Server Error).', 'error');
-            });
+            .catch(catcher(this.showSnackBar));
     };
 
     update = data => {
@@ -94,9 +93,7 @@ export default class View extends React.Component {
             .then(res => {
                 this.showSnackBar(`Version ${res.nom} a été modifié avec succès.`, 'success');
             })
-            .catch(() => {
-                this.showSnackBar('Une erreur inconnue est servenue (Server Error).', 'error');
-            });
+            .catch(catcher(this.showSnackBar));
     };
 
     delete = data => {
@@ -107,9 +104,7 @@ export default class View extends React.Component {
             .then(res => {
                 this.showSnackBar(`Version ${res.nom} a été supprimé avec succès.`, 'success');
             })
-            .catch(() => {
-                this.showSnackBar('Une erreur inconnue est servenue (Server Error).', 'error');
-            });
+            .catch(catcher(this.showSnackBar));
     };
 
     columns = [

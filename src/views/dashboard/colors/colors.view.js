@@ -18,6 +18,7 @@ import ConfirmationDialog from "../../../components/dashboard/confirmationDialog
 import Logo from '../../../components/Logo';
 import {simpleContrast} from "../../../utils/colors";
 import ImageDialog from "../../../components/dashboard/imageDialog";
+import {catcher} from "../../../utils/catcher";
 
 
 export default class View extends React.Component {
@@ -82,9 +83,7 @@ export default class View extends React.Component {
             .then(res => {
                 this.showSnackBar(`Couleur ${res.nom} a été créé avec succès.`, 'success');
             })
-            .catch(() => {
-                this.showSnackBar('Une erreur inconnue est servenue (Server Error).', 'error');
-            });
+            .catch(catcher(this.showSnackBar));
     };
 
     update = data => {
@@ -95,9 +94,7 @@ export default class View extends React.Component {
             .then(res => {
                 this.showSnackBar(`Couleur ${res.nom} a été modifié avec succès.`, 'success');
             })
-            .catch(() => {
-                this.showSnackBar('Une erreur inconnue est servenue (Server Error).', 'error');
-            });
+            .catch(catcher(this.showSnackBar));
     };
 
     delete = data => {
@@ -108,9 +105,7 @@ export default class View extends React.Component {
             .then(res => {
                 this.showSnackBar(`Couleur ${res.nom} a été supprimé avec succès.`, 'success');
             })
-            .catch(() => {
-                this.showSnackBar('Une erreur inconnue est servenue (Server Error).', 'error');
-            });
+            .catch(catcher(this.showSnackBar));
     };
 
     columns = [

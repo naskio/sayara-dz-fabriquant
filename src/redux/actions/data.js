@@ -1,4 +1,4 @@
-import {FETCH_DATA, RESET_DATA, UPDATE_DATA, DELETE_DATA, CREATE_DATA} from "../actionTypes";
+import {FETCH_DATA, RESET_DATA, UPDATE_DATA, DELETE_DATA, CREATE_DATA, UPLOAD_DATA} from "../actionTypes";
 
 
 export const resetDataAction = (category) => ({
@@ -29,4 +29,11 @@ export const createDataAction = (category, payload) => ({
     category,
     payload,
 });
+export const uploadDataAction = (category, payload) => ({
+    type: UPLOAD_DATA,
+    category,
+    payload,
+});
+
+
 

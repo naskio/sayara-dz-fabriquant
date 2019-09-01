@@ -19,7 +19,7 @@ export default {
         categories: {},
         videos: {},
         images: {},
-        // vehicles: {}, // READ ONLY DATA
-        // pricing: {}, // READ ONLY DATA
+        vehicles: {},
+        pricing: {},
     },
 };

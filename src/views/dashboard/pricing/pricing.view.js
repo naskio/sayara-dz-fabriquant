@@ -4,19 +4,35 @@ import {
     IconButton,
     Hidden,
     Dialog,
+    Grid,
+    Paper,
     Typography,
-    Link,
 } from '@material-ui/core';
 import {
     Add as AddIcon,
     Edit as EditIcon,
     Delete as DeleteIcon,
+    CloudUploadSharp as CloudIcon,
 } from '@material-ui/icons';
 import MUIDataTable from 'mui-datatables';
-import Form from './videos.form';
+import Form from './pricing.form';
 import SnackBar from '../../../components/dashboard/snackbar';
 import ConfirmationDialog from "../../../components/dashboard/confirmationDialog";
+import types from '../../../assets/data/pricingTypes';
 import {catcher} from "../../../utils/catcher";
+
+const reduceObjectId = (data) => {
+    return Object.entries(data).reduce(
+        (total, item) => {
+            const [k, v] = item;
+            if (k === 'object_id') {
+                total[types[data.type].field] = v;
+            } else {
+                total[k] = v;
+            }
+            return total;
+        }, {});
+};
 
 export default class View extends React.Component {
     constructor(props) {
@@ -33,6 +49,7 @@ export default class View extends React.Component {
             confirmationTitle: '',
             confirmationAction: null,
         };
+        this.uploaderRef = React.createRef();
     }
 
     toggleConfirmationDialog = () => {
@@ -67,33 +84,33 @@ export default class View extends React.Component {
 
     create = data => {
         this.toggleDialog();
-        const {createVideo} = this.props;
-        console.log('REQUEST:', data);
-        createVideo(data)
+        const {createPricing} = this.props;
+        console.log('REQUEST:', reduceObjectId(data));
+        createPricing(reduceObjectId(data))
             .then(res => {
-                this.showSnackBar(`Vidéo ${res.titre} a été créé avec succès.`, 'success');
+                this.showSnackBar(`la Tarification a été créé avec succès.`, 'success');
             })
             .catch(catcher(this.showSnackBar));
     };
 
     update = data => {
         this.toggleDialog();
-        const {updateVideo} = this.props;
-        console.log('REQUEST:', data);
-        updateVideo(data)
+        const {updatePricing} = this.props;
+        console.log('REQUEST:', reduceObjectId(data));
+        updatePricing(reduceObjectId(data))
             .then(res => {
-                this.showSnackBar(`Video ${res.titre} a été modifié avec succès.`, 'success');
+                this.showSnackBar(`la Tarification a été modifié avec succès.`, 'success');
             })
             .catch(catcher(this.showSnackBar));
     };
 
     delete = data => {
         this.toggleConfirmationDialog();
-        const {deleteVideo} = this.props;
-        console.log('REQUEST:', data);
-        deleteVideo(data)
+        const {deletePricing} = this.props;
+        console.log('REQUEST:', reduceObjectId(data));
+        deletePricing(reduceObjectId(data))
             .then(res => {
-                this.showSnackBar(`Vidéo ${res.titre} a été supprimé avec succès.`, 'success');
+                this.showSnackBar(`la Tarification a été supprimé avec succès.`, 'success');
             })
             .catch(catcher(this.showSnackBar));
     };
@@ -109,26 +126,42 @@ export default class View extends React.Component {
             },
         },
         {
-            name: 'titre',
-            label: 'Titre',
+            name: 'prix',
+            label: 'Prix (DZD)',
             options: {
                 filter: false,
                 sort: true,
             },
         },
         {
-            name: 'url',
-            label: 'Lien YouTube',
-            options: {
-                filter: false,
-                sort: true,
-            },
-        },
-        {
-            name: 'modele',
-            label: 'Modèle',
+            name: 'type',
+            label: 'Type de tarification',
             options: {
                 filter: true,
+                sort: true,
+            },
+        },
+        {
+            name: 'tarification',
+            label: 'Tarification',
+            options: {
+                filter: false,
+                sort: true,
+            },
+        },
+        {
+            name: 'date_debut',
+            label: 'Date Début',
+            options: {
+                filter: false,
+                sort: true,
+            },
+        },
+        {
+            name: 'date_fin',
+            label: 'Date Fin',
+            options: {
+                filter: false,
                 sort: true,
             },
         },
@@ -149,7 +182,7 @@ export default class View extends React.Component {
         rowsPerPage: 10,
         textLabels: {
             body: {
-                noMatch: "Aucune vidéo existante.",
+                noMatch: "Aucune tarification existante.",
                 toolTip: "Trier",
             },
             pagination: {
@@ -181,17 +214,19 @@ export default class View extends React.Component {
             },
         },
         customToolbar: () => (
-            <Tooltip title="Ajouter une vidéo" aria-label="Ajouter">
+            <Tooltip title="Ajouter une Tarification" aria-label="Ajouter">
                 <IconButton
                     onClick={() => {
                         this.setState({
                                 formOnSubmit: this.create,
                                 formInitialValues: {
-                                    titre: '',
-                                    url: '',
-                                    modele: '',
+                                    prix: '',
+                                    type: '',
+                                    object_id: '',
+                                    date_debut: '',
+                                    date_fin: '',
                                 },
-                                formTitle: 'Ajouter une Vidéo',
+                                formTitle: 'Ajouter une Tarification',
                             },
                             this.toggleDialog);
                     }}
@@ -201,6 +236,21 @@ export default class View extends React.Component {
             </Tooltip>
         ),
         selectableRows: 'none',
+    };
+
+    // TODO: check with backend and fix Upload Pricing
+    uploadPricingFile = event => {
+        if (event && event.target && event.target.files && event.target.files.length) {
+            const file = event.target.files[0];
+            const form = new FormData();
+            form.append('file', file);
+            const {uploadPricing} = this.props;
+            uploadPricing(form)
+                .then(res => {
+                    this.showSnackBar(`la Tarification a été uploader avec succès.`, 'success');
+                })
+                .catch(catcher(this.showSnackBar));
+        }
     };
 
     render() {
@@ -218,23 +268,55 @@ export default class View extends React.Component {
         } = this.state;
         const {
             // classes,
-            models,
-            videos,
+            options,
+            versions,
+            colors,
+            pricing,
         } = this.props;
         return (
             <div>
-                <Hidden xsDown>
-                    <MUIDataTable
-                        title="Géstion des vidéos"
+                <div className="d-flex flex-column justify-content-center align-items-center mb-5 mt-4">
+                    <Paper onClick={() => {
+                        this.uploaderRef.current.click();
+                    }}
+                           className="d-flex flex-row justify-content-between align-items-center p-4"
+                    >
+                        <Typography variant="h6" component="h6">
+                            Uploader un nouveau fichier de tarification
+                        </Typography>
+                        <span style={{
+                            fontSize: 64,
+                            width: 64,
+                            height: 64,
+                        }} className="p-0 m-0 ml-3">
+                                <CloudIcon fontSize='inherit'/>
+                            </span>
+                        <input
+                            className="d-none"
+                            hidden
+                            type="file"
+                            accept=".csv, .txt"
+                            name="file"
+                            onChange={this.uploadPricingFile}
+                            ref={this.uploaderRef}
+                        />
+                    </Paper>
+                </div>
+                <
+                    Hidden
+                    xsDown>
+                    < MUIDataTable
+                        title="Gestion des tarifs"
                         data={
-                            Object.entries(videos).map(([k, v]) =>
+                            Object.entries(pricing).map(([k, v]) =>
                                 [
                                     v.id,
-                                    <Typography variant="h6" style={{paddingLeft: 16}}>
-                                        {v.titre}
-                                    </Typography>,
-                                    <Link href={v.url} target='_blank' rel="noopener noreferrer">Lien YouTube</Link>,
-                                    !!models[v.modele] ? models[v.modele].nom : '',
+                                    v.prix,
+                                    types[v.type].label,
+                                    this.props[types[v.type].collection] ?
+                                        this.props[types[v.type].collection][v[types[v.type].field]].nom : '',
+                                    v.date_debut,
+                                    v.date_fin,
                                     <>
                                         <IconButton color="inherit" onClick={
                                             () => {
@@ -242,11 +324,13 @@ export default class View extends React.Component {
                                                         formOnSubmit: this.update,
                                                         formInitialValues: {
                                                             id: v.id,
-                                                            titre: v.titre,
-                                                            url: v.url,
-                                                            modele: v.modele,
+                                                            prix: v.prix,
+                                                            type: v.type,
+                                                            object_id: v[types[v.type].field],
+                                                            date_debut: v.date_debut,
+                                                            date_fin: v.date_fin,
                                                         },
-                                                        formTitle: `Modifier la Video ${v.titre}`,
+                                                        formTitle: `Modifier les tarifs de ${this.props[types[v.type].collection].nom}`,
                                                     },
                                                     this.toggleDialog);
                                             }
@@ -258,7 +342,7 @@ export default class View extends React.Component {
                                                 this.setState({
                                                         confirmationAction: () => this.delete(v),
                                                         confirmationTitle: `Etes-vous sûr de vouloir supprimer 
-                                                            la vidéo ${v.titre} ? 
+                                                            la tarification ${this.props[types[v.type].collection].nom} ? 
                                                             Cette action est irréversible`,
                                                     },
                                                     this.toggleConfirmationDialog);
@@ -287,7 +371,9 @@ export default class View extends React.Component {
                                 onSubmit={formOnSubmit}
                                 initialValues={formInitialValues}
                                 onCancel={this.toggleDialog}
-                                models={models}
+                                versions={versions}
+                                colors={colors}
+                                options={options}
                             />
                         )
                     }

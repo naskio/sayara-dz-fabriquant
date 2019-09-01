@@ -1,4 +1,4 @@
-import {FETCH_DATA, RESET_DATA, CREATE_DATA, DELETE_DATA, UPDATE_DATA} from '../actionTypes';
+import {FETCH_DATA, RESET_DATA, CREATE_DATA, DELETE_DATA, UPDATE_DATA, UPLOAD_DATA} from '../actionTypes';
 
 import initialState from '../initialState';
 
@@ -36,6 +36,18 @@ export default (state = initialState.data, action) => {
             return {
                 ...state, [action.category]: initialState.data[action.category],
             };
+        case UPLOAD_DATA: {
+            return {
+                ...state,
+                [action.category]: {
+                    ...state[action.category],
+                    ...action.payload.reduce((obj, item) => {
+                        obj[item.id] = item;
+                        return obj;
+                    }, {})
+                },
+            };
+        }
         default:
             return state;
     }

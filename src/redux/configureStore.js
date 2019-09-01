@@ -13,7 +13,7 @@ const persistConfig = {
     key: "root",
     keyPrefix: appName,
     storage: storage,
-    whitelist: ['config', 'signUp', 'user'],
+    whitelist: ['config', 'signUp', 'user', 'data'],
     // blacklists to ignore some reducers from persist
     // blacklist: [],
     // stateReconciler: autoMergeLevel2,

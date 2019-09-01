@@ -63,25 +63,28 @@ class View extends React.PureComponent {
         const {params: {page = Object.entries(routes)[0][0]}} = match;
         setTitle(`Sayara Dz - ${routes[page].label}`);
 
-        const {
-            fetchProfile,
-            fetchModels,
-            fetchVersions,
-            fetchCategories,
-            fetchOptions,
-            fetchColors,
-            fetchImages,
-            fetchVideos,
-        } = this.props;
-
+        // const {
+        //     fetchProfile,
+        //     fetchModels,
+        //     fetchVersions,
+        //     fetchCategories,
+        //     fetchOptions,
+        //     fetchColors,
+        //     fetchImages,
+        //     fetchVideos,
+        //     fetchPricing,
+        // } = this.props;
+        //
         // fetchProfile();
-        fetchModels();
+        // fetchModels();
         // fetchVersions();
         // fetchCategories();
         // fetchOptions();
         // fetchColors();
-        fetchImages();
-        fetchVideos();
+        // fetchImages();
+        // fetchVideos();
+        // fetchPricing();
+
         // TODO: make requests here
     }
 

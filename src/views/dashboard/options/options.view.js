@@ -15,6 +15,7 @@ import MUIDataTable from 'mui-datatables';
 import Form from './options.form';
 import SnackBar from '../../../components/dashboard/snackbar';
 import ConfirmationDialog from "../../../components/dashboard/confirmationDialog";
+import {catcher} from "../../../utils/catcher";
 
 export default class View extends React.Component {
     constructor(props) {
@@ -71,9 +72,7 @@ export default class View extends React.Component {
             .then(res => {
                 this.showSnackBar(`l'Option ${res.nom} a été créé avec succès.`, 'success');
             })
-            .catch(() => {
-                this.showSnackBar('Une erreur inconnue est servenue (Server Error).', 'error');
-            });
+            .catch(catcher(this.showSnackBar));
     };
 
     update = data => {
@@ -84,9 +83,7 @@ export default class View extends React.Component {
             .then(res => {
                 this.showSnackBar(`l'Option ${res.nom} a été modifié avec succès.`, 'success');
             })
-            .catch(() => {
-                this.showSnackBar('Une erreur inconnue est servenue (Server Error).', 'error');
-            });
+            .catch(catcher(this.showSnackBar));
     };
 
     delete = data => {
@@ -97,9 +94,7 @@ export default class View extends React.Component {
             .then(res => {
                 this.showSnackBar(`l'Option ${res.nom} a été supprimé avec succès.`, 'success');
             })
-            .catch(() => {
-                this.showSnackBar('Une erreur inconnue est servenue (Server Error).', 'error');
-            });
+            .catch(catcher(this.showSnackBar));
     };
 
     columns = [

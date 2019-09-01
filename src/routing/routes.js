@@ -8,6 +8,7 @@ import Versions from '../views/dashboard/versions';
 // import Colors from '../views/dashboard/colors';
 // import Videos from '../views/dashboard/videos';
 // import Images from '../views/dashboard/images';
+import Pricing from '../views/dashboard/pricing';
 
 export default {
     // home: {
@@ -28,7 +29,7 @@ export default {
     pricing: {
         label: 'Tarification',
         icon: CarIcon,
-        component: (props) => (<div>Hello Pricing</div>),
+        component: Pricing,
     },
     // models: {
     //     label: 'Modèles',
