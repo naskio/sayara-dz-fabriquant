@@ -12,18 +12,18 @@ import {
     Delete as DeleteIcon,
 } from '@material-ui/icons';
 import MUIDataTable from 'mui-datatables';
-import Form from './models.form';
+import Form from './images.form';
 import SnackBar from '../../../components/dashboard/snackbar';
 import ConfirmationDialog from "../../../components/dashboard/confirmationDialog";
-import Logo from '../../../components/Logo';
 import ImageDialog from "../../../components/dashboard/imageDialog";
+import Logo from '../../../components/Logo';
+import types from '../../../assets/data/imageTypes';
 
-
+// TODO: add specifications + update specifications
 export default class View extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            // data: props.models,
             openDialog: false,
             openSnackBar: false,
             messageSnackBar: '',
@@ -39,12 +39,6 @@ export default class View extends React.Component {
         };
     }
 
-    // componentDidUpdate(prevProps, prevState, snapshot) {
-    //     const {models} = this.props;
-    //     if (prevProps.models !== models) {
-    //         this.setState({data: models});
-    //     }
-    // }
     toggleConfirmationDialog = () => {
         const {openConfirmationDialog} = this.state;
         this.setState({openConfirmationDialog: !openConfirmationDialog});
@@ -82,11 +76,11 @@ export default class View extends React.Component {
 
     create = data => {
         this.toggleDialog();
-        const {createModel} = this.props;
+        const {createImage} = this.props;
         console.log('REQUEST:', data);
-        createModel(data)
+        createImage(data)
             .then(res => {
-                this.showSnackBar(`Modèle ${res.nom} a été créé avec succès.`, 'success');
+                this.showSnackBar(`l'Image ${res.titre} a été créé avec succès.`, 'success');
             })
             .catch(() => {
                 this.showSnackBar('Une erreur inconnue est servenue (Server Error).', 'error');
@@ -95,11 +89,11 @@ export default class View extends React.Component {
 
     update = data => {
         this.toggleDialog();
-        const {updateModel} = this.props;
+        const {updateImage} = this.props;
         console.log('REQUEST:', data);
-        updateModel(data)
+        updateImage(data)
             .then(res => {
-                this.showSnackBar(`Modèle ${res.nom} a été modifié avec succès.`, 'success');
+                this.showSnackBar(`l'Image ${res.titre} a été modifié avec succès.`, 'success');
             })
             .catch(() => {
                 this.showSnackBar('Une erreur inconnue est servenue (Server Error).', 'error');
@@ -108,11 +102,11 @@ export default class View extends React.Component {
 
     delete = data => {
         this.toggleConfirmationDialog();
-        const {deleteModel} = this.props;
+        const {deleteImage} = this.props;
         console.log('REQUEST:', data);
-        deleteModel(data)
+        deleteImage(data)
             .then(res => {
-                this.showSnackBar(`Modèle ${res.nom} a été supprimé avec succès.`, 'success');
+                this.showSnackBar(`l'Image ${res.titre} a été supprimé avec succès.`, 'success');
             })
             .catch(() => {
                 this.showSnackBar('Une erreur inconnue est servenue (Server Error).', 'error');
@@ -130,39 +124,31 @@ export default class View extends React.Component {
             },
         },
         {
-            name: 'nom',
-            label: 'Nom',
+            name: 'titre',
+            label: 'Titre',
             options: {
                 filter: false,
                 sort: true,
             },
         },
         {
-            name: 'code_modele',
-            label: 'Code',
-            options: {
-                filter: false,
-                sort: true,
-            },
-        },
-        {
-            name: 'prix_base',
-            label: 'Prix de base (DZD)',
+            name: 'type',
+            label: "Type de l'image",
             options: {
                 filter: true,
                 sort: true,
             },
         },
         {
-            name: 'disponible',
-            label: 'Disponibilité (Unité)',
+            name: 'modele',
+            label: 'Modèle',
             options: {
                 filter: true,
                 sort: true,
             },
         },
         {
-            name: 'image',
+            name: 'url',
             label: 'Image',
             options: {
                 filter: false,
@@ -188,7 +174,7 @@ export default class View extends React.Component {
         rowsPerPage: 10,
         textLabels: {
             body: {
-                noMatch: "Aucun modèle existant.",
+                noMatch: "Aucune image existante.",
                 toolTip: "Trier",
             },
             pagination: {
@@ -219,25 +205,19 @@ export default class View extends React.Component {
                 deleteAria: 'Supprimer la selection',
             },
         },
-        // onRowsDelete: (rowsDeleted) => {
-        //     const {data} = this.state;
-        //     console.log(data);
-        //     const ids = rowsDeleted.data.map(i => data[i.dataIndex].id);
-        //     console.log('TO DELETE', ids);
-        //     return false;
-        // },
-        customToolbar: (props) => (
-            <Tooltip title="Ajouter un modèle" aria-label="Ajouter">
+        customToolbar: () => (
+            <Tooltip title="Ajouter une image" aria-label="Ajouter">
                 <IconButton
                     onClick={() => {
                         this.setState({
                                 formOnSubmit: this.create,
                                 formInitialValues: {
-                                    nom: '',
-                                    code_modele: '',
-                                    prix_base: '',
+                                    titre: '',
+                                    url: '',
+                                    modele: '',
+                                    type: '',
                                 },
-                                formTitle: 'Ajouter Un Modèle',
+                                formTitle: 'Ajouter une Image',
                             },
                             this.toggleDialog);
                     }}
@@ -246,13 +226,15 @@ export default class View extends React.Component {
                 </IconButton>
             </Tooltip>
         ),
-        // customToolbarSelect: () => (<></>),
         selectableRows: 'none',
     };
 
     render() {
         const {
-            openDialog, openSnackBar, messageSnackBar, variantSnackBar,
+            openDialog,
+            openSnackBar,
+            messageSnackBar,
+            variantSnackBar,
             formOnSubmit,
             formInitialValues,
             formTitle,
@@ -265,25 +247,25 @@ export default class View extends React.Component {
         const {
             // classes,
             models,
+            images,
         } = this.props;
         return (
             <div>
                 <Hidden xsDown>
                     <MUIDataTable
-                        title="Géstion des modèles"
+                        title="Géstion des images"
                         data={
-                            Object.entries(models).map(([k, v]) =>
+                            Object.entries(images).map(([k, v]) =>
                                 [
                                     v.id,
                                     <Typography variant="h6" style={{paddingLeft: 16}}>
-                                        {v.nom}
+                                        {v.titre}
                                     </Typography>,
-                                    v.code_modele,
-                                    v.prix_base,
-                                    v.disponible,
-                                    v.image ? <Logo alt="logo" src={v.image} onClick={
+                                    !!types[v.type] ? types[v.type].label : '',
+                                    !!models && !!models[v.modele] ? models[v.modele].nom : '',
+                                    v.url ? <Logo alt="logo" src={v.url} onClick={
                                         () => {
-                                            this.setState({imageDialogUrl: v.image}, this.toggleImageDialog)
+                                            this.setState({imageDialogUrl: v.url}, this.toggleImageDialog)
                                         }
                                     }/> : <></>,
                                     <>
@@ -293,11 +275,12 @@ export default class View extends React.Component {
                                                         formOnSubmit: this.update,
                                                         formInitialValues: {
                                                             id: v.id,
-                                                            nom: v.nom,
-                                                            code_modele: v.code_modele,
-                                                            prix_base: v.prix_base,
+                                                            titre: v.titre,
+                                                            type: v.type,
+                                                            modele: v.modele,
+                                                            url: v.url,
                                                         },
-                                                        formTitle: `Modifier le Modèle ${v.nom}`,
+                                                        formTitle: `Modifier l'Image ${v.titre}`,
                                                     },
                                                     this.toggleDialog);
                                             }
@@ -309,7 +292,7 @@ export default class View extends React.Component {
                                                 this.setState({
                                                         confirmationAction: () => this.delete(v),
                                                         confirmationTitle: `Etes-vous sûr de vouloir supprimer 
-                                                            le modèle ${v.nom} ainsi que toutes ses versions? 
+                                                            l'image ${v.titre} ? 
                                                             Cette action est irréversible`,
                                                     },
                                                     this.toggleConfirmationDialog);
@@ -324,8 +307,6 @@ export default class View extends React.Component {
                         columns={this.columns}
                         options={this.options}
                     />
-
-                    {/*Add new Item dialog*/}
                 </Hidden>
 
                 {/*Edit and new form*/}
@@ -340,6 +321,7 @@ export default class View extends React.Component {
                                 onSubmit={formOnSubmit}
                                 initialValues={formInitialValues}
                                 onCancel={this.toggleDialog}
+                                models={models}
                             />
                         )
                     }

@@ -2,55 +2,64 @@ import React from "react";
 import {
     DirectionsCar as CarIcon,
 } from "@material-ui/icons";
-import Models from '../views/dashboard/models';
+// import Models from '../views/dashboard/models';
 import Versions from '../views/dashboard/versions';
+// import Options from '../views/dashboard/options';
+// import Colors from '../views/dashboard/colors';
+// import Videos from '../views/dashboard/videos';
+// import Images from '../views/dashboard/images';
 
 export default {
-    home: {
-        label: 'Accueil',
-        icon: CarIcon,
-        component: (props) => (<div>Hello home</div>),
-    },
+    // home: {
+    //     label: 'Accueil',
+    //     icon: CarIcon,
+    //     component: (props) => (<div>Hello home</div>),
+    // },
     orders: {
         label: 'Commandes',
         icon: CarIcon,
         component: (props) => (<div>Hello Orders</div>),
-    },
-    models: {
-        label: 'Modèles',
-        icon: CarIcon,
-        component: Models,
-    },
-    versions: {
-        label: 'Versions',
-        icon: CarIcon,
-        component: Versions,
-    },
-    images: {
-        label: 'Images',
-        icon: CarIcon,
-        component: (props) => (<div>Hello Images</div>),
-    },
-    videos: {
-        label: 'Videos',
-        icon: CarIcon,
-        component: (props) => (<div>Hello Videos</div>),
     },
     stock: {
         label: 'Stock',
         icon: CarIcon,
         component: (props) => (<div>Hello Stock</div>),
     },
-    colors: {
-        label: 'Couleurs',
+    pricing: {
+        label: 'Tarification',
         icon: CarIcon,
-        component: (props) => (<div>Hello Colors</div>),
+        component: (props) => (<div>Hello Pricing</div>),
     },
-    options: {
-        label: 'Options',
+    // models: {
+    //     label: 'Modèles',
+    //     icon: CarIcon,
+    //     component: Models,
+    // },
+    versions: {
+        label: 'Versions',
         icon: CarIcon,
-        component: (props) => (<div>Hello options</div>),
+        component: Versions,
     },
+    // images: {
+    //     label: 'Images',
+    //     icon: CarIcon,
+    //     component: Images,
+    // },
+    // videos: {
+    //     label: 'Videos',
+    //     icon: CarIcon,
+    //     component: Videos,
+    // },
+    // colors: {
+    //     label: 'Couleurs',
+    //     icon: CarIcon,
+    //     component: Colors,
+    // },
+    // options: {
+    //     label: 'Options',
+    //     icon: CarIcon,
+    //     component: Options,
+    // },
     simulation: {
         label: 'Simulation du prix',
         icon: CarIcon,

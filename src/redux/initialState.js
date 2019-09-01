@@ -16,5 +16,10 @@ export default {
         colors: {},
         options: {},
         orders: {},
+        categories: {},
+        videos: {},
+        images: {},
+        // vehicles: {}, // READ ONLY DATA
+        // pricing: {}, // READ ONLY DATA
     },
 };

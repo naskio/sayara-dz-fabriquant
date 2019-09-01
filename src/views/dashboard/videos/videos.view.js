@@ -5,6 +5,7 @@ import {
     Hidden,
     Dialog,
     Typography,
+    Link,
 } from '@material-ui/core';
 import {
     Add as AddIcon,
@@ -12,18 +13,14 @@ import {
     Delete as DeleteIcon,
 } from '@material-ui/icons';
 import MUIDataTable from 'mui-datatables';
-import Form from './models.form';
+import Form from './videos.form';
 import SnackBar from '../../../components/dashboard/snackbar';
 import ConfirmationDialog from "../../../components/dashboard/confirmationDialog";
-import Logo from '../../../components/Logo';
-import ImageDialog from "../../../components/dashboard/imageDialog";
-
 
 export default class View extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            // data: props.models,
             openDialog: false,
             openSnackBar: false,
             messageSnackBar: '',
@@ -34,17 +31,9 @@ export default class View extends React.Component {
             openConfirmationDialog: false,
             confirmationTitle: '',
             confirmationAction: null,
-            openImageDialog: false,
-            imageDialogUrl: '',
         };
     }
 
-    // componentDidUpdate(prevProps, prevState, snapshot) {
-    //     const {models} = this.props;
-    //     if (prevProps.models !== models) {
-    //         this.setState({data: models});
-    //     }
-    // }
     toggleConfirmationDialog = () => {
         const {openConfirmationDialog} = this.state;
         this.setState({openConfirmationDialog: !openConfirmationDialog});
@@ -58,11 +47,6 @@ export default class View extends React.Component {
     toggleSnackBar = () => {
         const {openSnackBar} = this.state;
         this.setState({openSnackBar: !openSnackBar,});
-    };
-
-    toggleImageDialog = () => {
-        const {openImageDialog} = this.state;
-        this.setState({openImageDialog: !openImageDialog,});
     };
 
     handleCloseSnackBar = (event, reason) => {
@@ -82,11 +66,11 @@ export default class View extends React.Component {
 
     create = data => {
         this.toggleDialog();
-        const {createModel} = this.props;
+        const {createVideo} = this.props;
         console.log('REQUEST:', data);
-        createModel(data)
+        createVideo(data)
             .then(res => {
-                this.showSnackBar(`Modèle ${res.nom} a été créé avec succès.`, 'success');
+                this.showSnackBar(`Vidéo ${res.titre} a été créé avec succès.`, 'success');
             })
             .catch(() => {
                 this.showSnackBar('Une erreur inconnue est servenue (Server Error).', 'error');
@@ -95,11 +79,11 @@ export default class View extends React.Component {
 
     update = data => {
         this.toggleDialog();
-        const {updateModel} = this.props;
+        const {updateVideo} = this.props;
         console.log('REQUEST:', data);
-        updateModel(data)
+        updateVideo(data)
             .then(res => {
-                this.showSnackBar(`Modèle ${res.nom} a été modifié avec succès.`, 'success');
+                this.showSnackBar(`Video ${res.titre} a été modifié avec succès.`, 'success');
             })
             .catch(() => {
                 this.showSnackBar('Une erreur inconnue est servenue (Server Error).', 'error');
@@ -108,11 +92,11 @@ export default class View extends React.Component {
 
     delete = data => {
         this.toggleConfirmationDialog();
-        const {deleteModel} = this.props;
+        const {deleteVideo} = this.props;
         console.log('REQUEST:', data);
-        deleteModel(data)
+        deleteVideo(data)
             .then(res => {
-                this.showSnackBar(`Modèle ${res.nom} a été supprimé avec succès.`, 'success');
+                this.showSnackBar(`Vidéo ${res.titre} a été supprimé avec succès.`, 'success');
             })
             .catch(() => {
                 this.showSnackBar('Une erreur inconnue est servenue (Server Error).', 'error');
@@ -130,45 +114,27 @@ export default class View extends React.Component {
             },
         },
         {
-            name: 'nom',
-            label: 'Nom',
+            name: 'titre',
+            label: 'Titre',
             options: {
                 filter: false,
                 sort: true,
             },
         },
         {
-            name: 'code_modele',
-            label: 'Code',
+            name: 'url',
+            label: 'Lien YouTube',
             options: {
                 filter: false,
                 sort: true,
             },
         },
         {
-            name: 'prix_base',
-            label: 'Prix de base (DZD)',
+            name: 'modele',
+            label: 'Modèle',
             options: {
                 filter: true,
                 sort: true,
-            },
-        },
-        {
-            name: 'disponible',
-            label: 'Disponibilité (Unité)',
-            options: {
-                filter: true,
-                sort: true,
-            },
-        },
-        {
-            name: 'image',
-            label: 'Image',
-            options: {
-                filter: false,
-                sort: false,
-                print: false,
-                download: false,
             },
         },
         {
@@ -188,7 +154,7 @@ export default class View extends React.Component {
         rowsPerPage: 10,
         textLabels: {
             body: {
-                noMatch: "Aucun modèle existant.",
+                noMatch: "Aucune vidéo existante.",
                 toolTip: "Trier",
             },
             pagination: {
@@ -219,25 +185,18 @@ export default class View extends React.Component {
                 deleteAria: 'Supprimer la selection',
             },
         },
-        // onRowsDelete: (rowsDeleted) => {
-        //     const {data} = this.state;
-        //     console.log(data);
-        //     const ids = rowsDeleted.data.map(i => data[i.dataIndex].id);
-        //     console.log('TO DELETE', ids);
-        //     return false;
-        // },
-        customToolbar: (props) => (
-            <Tooltip title="Ajouter un modèle" aria-label="Ajouter">
+        customToolbar: () => (
+            <Tooltip title="Ajouter une vidéo" aria-label="Ajouter">
                 <IconButton
                     onClick={() => {
                         this.setState({
                                 formOnSubmit: this.create,
                                 formInitialValues: {
-                                    nom: '',
-                                    code_modele: '',
-                                    prix_base: '',
+                                    titre: '',
+                                    url: '',
+                                    modele: '',
                                 },
-                                formTitle: 'Ajouter Un Modèle',
+                                formTitle: 'Ajouter une Vidéo',
                             },
                             this.toggleDialog);
                     }}
@@ -246,46 +205,41 @@ export default class View extends React.Component {
                 </IconButton>
             </Tooltip>
         ),
-        // customToolbarSelect: () => (<></>),
         selectableRows: 'none',
     };
 
     render() {
         const {
-            openDialog, openSnackBar, messageSnackBar, variantSnackBar,
+            openDialog,
+            openSnackBar,
+            messageSnackBar,
+            variantSnackBar,
             formOnSubmit,
             formInitialValues,
             formTitle,
             openConfirmationDialog,
             confirmationTitle,
             confirmationAction,
-            openImageDialog,
-            imageDialogUrl,
         } = this.state;
         const {
             // classes,
             models,
+            videos,
         } = this.props;
         return (
             <div>
                 <Hidden xsDown>
                     <MUIDataTable
-                        title="Géstion des modèles"
+                        title="Géstion des vidéos"
                         data={
-                            Object.entries(models).map(([k, v]) =>
+                            Object.entries(videos).map(([k, v]) =>
                                 [
                                     v.id,
                                     <Typography variant="h6" style={{paddingLeft: 16}}>
-                                        {v.nom}
+                                        {v.titre}
                                     </Typography>,
-                                    v.code_modele,
-                                    v.prix_base,
-                                    v.disponible,
-                                    v.image ? <Logo alt="logo" src={v.image} onClick={
-                                        () => {
-                                            this.setState({imageDialogUrl: v.image}, this.toggleImageDialog)
-                                        }
-                                    }/> : <></>,
+                                    <Link href={v.url} target='_blank' rel="noopener noreferrer">Lien YouTube</Link>,
+                                    !!models[v.modele] ? models[v.modele].nom : '',
                                     <>
                                         <IconButton color="inherit" onClick={
                                             () => {
@@ -293,11 +247,11 @@ export default class View extends React.Component {
                                                         formOnSubmit: this.update,
                                                         formInitialValues: {
                                                             id: v.id,
-                                                            nom: v.nom,
-                                                            code_modele: v.code_modele,
-                                                            prix_base: v.prix_base,
+                                                            titre: v.titre,
+                                                            url: v.url,
+                                                            modele: v.modele,
                                                         },
-                                                        formTitle: `Modifier le Modèle ${v.nom}`,
+                                                        formTitle: `Modifier la Video ${v.titre}`,
                                                     },
                                                     this.toggleDialog);
                                             }
@@ -309,7 +263,7 @@ export default class View extends React.Component {
                                                 this.setState({
                                                         confirmationAction: () => this.delete(v),
                                                         confirmationTitle: `Etes-vous sûr de vouloir supprimer 
-                                                            le modèle ${v.nom} ainsi que toutes ses versions? 
+                                                            la vidéo ${v.titre} ? 
                                                             Cette action est irréversible`,
                                                     },
                                                     this.toggleConfirmationDialog);
@@ -324,8 +278,6 @@ export default class View extends React.Component {
                         columns={this.columns}
                         options={this.options}
                     />
-
-                    {/*Add new Item dialog*/}
                 </Hidden>
 
                 {/*Edit and new form*/}
@@ -340,6 +292,7 @@ export default class View extends React.Component {
                                 onSubmit={formOnSubmit}
                                 initialValues={formInitialValues}
                                 onCancel={this.toggleDialog}
+                                models={models}
                             />
                         )
                     }
@@ -364,15 +317,6 @@ export default class View extends React.Component {
                         handleClose={this.handleCloseSnackBar}
                         message={messageSnackBar}
                         variant={variantSnackBar}
-                    />
-                }
-
-                {/*Image dialog*/}
-                {
-                    openImageDialog && <ImageDialog
-                        open={openImageDialog}
-                        image={imageDialogUrl}
-                        onClose={this.toggleImageDialog}
                     />
                 }
             </div>

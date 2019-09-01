@@ -64,13 +64,24 @@ class View extends React.PureComponent {
         setTitle(`Sayara Dz - ${routes[page].label}`);
 
         const {
-            // fetchProfile,
+            fetchProfile,
             fetchModels,
             fetchVersions,
+            fetchCategories,
+            fetchOptions,
+            fetchColors,
+            fetchImages,
+            fetchVideos,
         } = this.props;
+
         // fetchProfile();
         fetchModels();
-        fetchVersions();
+        // fetchVersions();
+        // fetchCategories();
+        // fetchOptions();
+        // fetchColors();
+        fetchImages();
+        fetchVideos();
         // TODO: make requests here
     }
 

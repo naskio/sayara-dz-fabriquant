@@ -75,10 +75,11 @@ class Uploader extends Component {
             error,
             helperText,
             value,
+            label,
         } = this.props;
         return (
             <div className="p-2 col-12 d-flex flex-column align-items-center justify-content-center">
-                <Typography color="primary">Image</Typography>
+                <Typography color="primary">{label || 'Image'}</Typography>
                 {
                     !!value &&
                     <Preview
@@ -98,12 +99,12 @@ class Uploader extends Component {
                     withIcon
                     buttonText="Choisir une images"
                     onChange={this.handleChange}
-                    imgExtension={['.jpg', '.png']}
+                    imgExtension={['.jpg', '.png', ['.jpeg']]}
                     maxFileSize={5242880}
                     singleImage
                     color="secondary"
                     errorClass={helperText}
-                    label="'taille maximale: 5mb, formats: jpg,png"
+                    label="'taille maximale: 5mb, formats: jpg,png,jpeg"
                     fileSizeError="fichier trés volumineux, taille maximale: 5mb"
                     fileTypeError="Format non supportée"
                 />
