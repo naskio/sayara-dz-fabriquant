@@ -1,18 +1,21 @@
 import React, {Component} from 'react';
-// import * as PropTypes from 'prop-types';
 import firebase from 'firebase/app';
 import 'firebase/storage';
-// import 'firebase/firestore';
-// import 'firebase/auth';
 import {uuidv4} from '../../../utils/uuid';
 import ImageUploader from 'react-images-upload';
 import {
     LinearProgress,
-    CircularProgress,
     Typography,
-    Avatar,
 } from '@material-ui/core';
 import config from '../../../config/firebase';
+import styled from "styled-components";
+
+const Preview = styled.img`
+  height: 8rem;
+  object-fit: contain;
+  border-radius: 1rem;
+  background-color: transparent;
+`;
 
 /**
  * Image uploader
@@ -50,6 +53,7 @@ class Uploader extends Component {
                     setFieldError(name, err.message);
                 },
                 () => {
+                    this.setState({percentage: 0});
                     task.snapshot.ref.getDownloadURL()
                         .then(downloadURL => {
                             setFieldValue(name, downloadURL);
@@ -73,21 +77,20 @@ class Uploader extends Component {
             value,
         } = this.props;
         return (
-            <>
+            <div className="p-2 col-12 d-flex flex-column align-items-center justify-content-center">
+                <Typography color="primary">Image</Typography>
                 {
-                    percentage && <CircularProgress
-                        variant="determinate" value={percentage}
-                        size="24"
+                    !!value &&
+                    <Preview
+                        src={value}
                     />
                 }
                 {
-                    !percentage && value &&
-                    <Avatar
-                        src={value}
-                        imgProps={{
-                            objectFit: 'cover',
-                        }}
-                        sizes="24 24"
+                    !!percentage &&
+                    <LinearProgress
+                        variant="determinate"
+                        color="primary"
+                        value={percentage}
                     />
                 }
                 <ImageUploader
@@ -98,7 +101,6 @@ class Uploader extends Component {
                     imgExtension={['.jpg', '.png']}
                     maxFileSize={5242880}
                     singleImage
-                    withPreview={!!value}
                     color="secondary"
                     errorClass={helperText}
                     label="'taille maximale: 5mb, formats: jpg,png"
@@ -108,7 +110,7 @@ class Uploader extends Component {
                 {helperText && <Typography color={error ? 'error' : 'inherit'}>
                     {helperText}
                 </Typography>}
-            </>
+            </div>
         );
     }
 }

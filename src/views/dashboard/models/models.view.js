@@ -271,8 +271,7 @@ export default class View extends React.Component {
                                     v.code_modele,
                                     v.prix_base,
                                     v.disponible,
-                                    v.image ?
-                                        <Logo alt="logo" src={v.image}/> : <></>,
+                                    v.image ? <Logo alt="logo" src={v.image}/> : <></>,
                                     <>
                                         <IconButton color="inherit" onClick={
                                             () => {

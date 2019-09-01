@@ -66,11 +66,11 @@ class View extends React.PureComponent {
         const {
             // fetchProfile,
             fetchModels,
-            // fetchVersions,
+            fetchVersions,
         } = this.props;
         // fetchProfile();
         fetchModels();
-        // fetchVersions();
+        fetchVersions();
         // TODO: make requests here
     }
 

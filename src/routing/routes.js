@@ -3,6 +3,7 @@ import {
     DirectionsCar as CarIcon,
 } from "@material-ui/icons";
 import Models from '../views/dashboard/models';
+import Versions from '../views/dashboard/versions';
 
 export default {
     home: {
@@ -23,7 +24,7 @@ export default {
     versions: {
         label: 'Versions',
         icon: CarIcon,
-        component: (props) => (<div>Hello Versions</div>),
+        component: Versions,
     },
     images: {
         label: 'Images',
