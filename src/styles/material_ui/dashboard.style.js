@@ -112,6 +112,9 @@ const styles = theme => ({
             width: 200,
         },
     },
+    labelColumn: {
+        paddingLeft: theme.spacing(2),
+    }
 });
 
 export default styles;

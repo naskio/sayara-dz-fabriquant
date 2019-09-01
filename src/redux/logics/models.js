@@ -5,7 +5,7 @@ import {
     createDataAction,
     deleteDataAction,
     updateDataAction,
-    resetDataAction,
+    // resetDataAction,
 } from "../actions/data";
 
 export const fetchModels = () => dispatch => {

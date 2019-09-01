@@ -1,6 +1,11 @@
 import {connect} from "react-redux";
 import View from "./models.view";
-import {createModel, deleteModel, fetchModels, updateModel} from "../../../redux/logics/models";
+import {
+    createModel,
+    deleteModel,
+    // fetchModels,
+    updateModel
+} from "../../../redux/logics/models";
 
 const mapStateToProps = state => ({
     models: state.data.models,
@@ -9,7 +14,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     createModel: (data) => dispatch(createModel(data)),
     deleteModel: (data) => dispatch(deleteModel(data)),
-    fetchModels: () => dispatch(fetchModels()),
+    // fetchModels: () => dispatch(fetchModels()),
     updateModel: (data) => dispatch(updateModel(data)),
 });
 

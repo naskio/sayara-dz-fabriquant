@@ -1,70 +1,117 @@
 import React, {Component} from 'react';
+// import * as PropTypes from 'prop-types';
 import firebase from 'firebase/app';
 import 'firebase/storage';
 // import 'firebase/firestore';
 // import 'firebase/auth';
+import {uuidv4} from '../../../utils/uuid';
 import ImageUploader from 'react-images-upload';
-import {LinearProgress} from '@material-ui/core';
+import {
+    LinearProgress,
+    CircularProgress,
+    Typography,
+    Avatar,
+} from '@material-ui/core';
 import config from '../../../config/firebase';
 
 /**
  * Image uploader
  */
-export default class Uploader extends Component {
+class Uploader extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            uploaded: false,
-            percentage: 0,
-            errorMsg: '',
-        };
+        this.state = {percentage: 0,};
         if (!firebase.apps.length) {
             firebase.initializeApp(config);
         }
     }
 
     handleChange = (pictureFiles) => {
-        const file = pictureFiles[0];
-        const storage = firebase.storage();
-        const storageRef = storage.ref();
-        const imagesRef = storageRef.child(`images/${file.name}`);
-        const task = imagesRef.put(file);
-        const {handleUploaded} = this.props;
-        task.on(
-            'state_changed',
-            snapshot => {
-                const percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                this.setState({percentage});
-            },
-            err => {
-                this.setState({errorMsg: err.message});
-            },
-            () => {
-                this.setState({uploaded: true});
-                task.snapshot.ref.getDownloadURL().then(downloadURL => {
-                    handleUploaded(downloadURL);
-                });
-            }
-        );
+        const {setFieldTouched, name} = this.props;
+        setFieldTouched(name, true);
+        if (pictureFiles && pictureFiles.length) {
+            const file = pictureFiles[0];
+            const storage = firebase.storage();
+            const storageRef = storage.ref();
+            const imagesRef = storageRef.child(`images/${uuidv4()}`);
+            const task = imagesRef.put(file);
+            const {
+                setFieldValue,
+                name,
+                setFieldError,
+            } = this.props;
+            task.on(
+                'state_changed',
+                snapshot => {
+                    const percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    this.setState({percentage});
+                },
+                err => {
+                    setFieldError(name, err.message);
+                },
+                () => {
+                    task.snapshot.ref.getDownloadURL()
+                        .then(downloadURL => {
+                            setFieldValue(name, downloadURL);
+                        });
+                }
+            );
+        } else {
+            const {
+                setFieldValue,
+            } = this.props;
+            setFieldValue(name, '');
+        }
     };
 
     render() {
-        const {uploaded, percentage, errorMsg} = this.state;
+        const {percentage} = this.state;
+        const {
+            name,
+            error,
+            helperText,
+            value,
+        } = this.props;
         return (
-            <div style={{width: '100%'}}>
-                <LinearProgress variant="determinate" value={percentage}/>
+            <>
+                {
+                    percentage && <CircularProgress
+                        variant="determinate" value={percentage}
+                        size="24"
+                    />
+                }
+                {
+                    !percentage && value &&
+                    <Avatar
+                        src={value}
+                        imgProps={{
+                            objectFit: 'cover',
+                        }}
+                        sizes="24 24"
+                    />
+                }
                 <ImageUploader
+                    name={name}
                     withIcon
                     buttonText="Choisir une images"
                     onChange={this.handleChange}
-                    imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                    imgExtension={['.jpg', '.png']}
                     maxFileSize={5242880}
                     singleImage
-                    withPreview={uploaded}
+                    withPreview={!!value}
                     color="secondary"
-                    errorClass={errorMsg}
+                    errorClass={helperText}
+                    label="'taille maximale: 5mb, formats: jpg,png"
+                    fileSizeError="fichier trés volumineux, taille maximale: 5mb"
+                    fileTypeError="Format non supportée"
                 />
-            </div>
+                {helperText && <Typography color={error ? 'error' : 'inherit'}>
+                    {helperText}
+                </Typography>}
+            </>
         );
     }
 }
+
+
+export default Uploader;

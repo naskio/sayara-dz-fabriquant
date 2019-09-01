@@ -25,6 +25,16 @@ export default {
         icon: CarIcon,
         component: (props) => (<div>Hello Versions</div>),
     },
+    images: {
+        label: 'Images',
+        icon: CarIcon,
+        component: (props) => (<div>Hello Images</div>),
+    },
+    videos: {
+        label: 'Videos',
+        icon: CarIcon,
+        component: (props) => (<div>Hello Videos</div>),
+    },
     stock: {
         label: 'Stock',
         icon: CarIcon,
