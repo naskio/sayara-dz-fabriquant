@@ -27,7 +27,7 @@ export const logout = () => dispatch => {
     dispatch(setUserAction({token: ''}));
 };
 
-export const getProfile = () => dispatch => {
+export const fetchProfile = () => dispatch => {
     return axios.get(API('profile')).then(res => {
         dispatch(setUserAction(res.data));
     });

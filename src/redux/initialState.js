@@ -10,4 +10,11 @@ export default {
     signUp: {
         isSignedUp: false,
     },
+    data: {
+        models: {},
+        versions: {},
+        colors: {},
+        options: {},
+        orders: {},
+    },
 };

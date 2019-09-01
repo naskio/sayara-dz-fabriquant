@@ -41,6 +41,8 @@ const Logo = styled.img`
 class View extends React.PureComponent {
     constructor(props) {
         super(props);
+        const {token} = props;
+        setAuthorizationToken(token);
         this.state = {
             openDrawer: true,
             openLogoutDialog: false,
@@ -57,18 +59,19 @@ class View extends React.PureComponent {
     }
 
     componentDidMount() {
-        const {token} = this.props;
-        if (!token) {
-            return;
-        }
-        setAuthorizationToken(token);
-
-        const {getProfile, match, setTitle} = this.props;
+        const {match, setTitle} = this.props;
         const {params: {page = Object.entries(routes)[0][0]}} = match;
         setTitle(`Sayara Dz - ${routes[page].label}`);
 
+        const {
+            fetchProfile,
+            fetchModels,
+            // fetchVersions,
+        } = this.props;
+        // fetchProfile();
+        fetchModels();
+        // fetchVersions();
         // TODO: make requests here
-        getProfile();
     }
 
     toggleDrawer = () => {

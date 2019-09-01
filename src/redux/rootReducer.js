@@ -3,6 +3,7 @@ import {combineReducers} from "redux";
 import user from "./reducers/user";
 import signUp from "./reducers/signUp";
 import config from "./reducers/config";
+import data from "./reducers/data";
 
 
 // mapping the name of a reducer to the reducer function (=> state : { messages:{ ... }, ... })
@@ -14,4 +15,5 @@ export default combineReducers({
     user,
     signUp,
     config,
+    data,
 });
