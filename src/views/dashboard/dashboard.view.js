@@ -40,6 +40,7 @@ const Logo = styled.img`
   object-fit: contain;
 `;
 
+// TODO: add tests everywhere
 class View extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -79,6 +80,7 @@ class View extends React.PureComponent {
                 fetchVideos,
                 fetchPricing,
                 fetchVehicles,
+                fetchOrders,
             } = this.props;
             fetchProfile();
             fetchModels();
@@ -90,7 +92,7 @@ class View extends React.PureComponent {
             fetchVideos();
             fetchPricing();
             fetchVehicles();
-            // TODO: make requests here
+            fetchOrders();
         }
     }
 

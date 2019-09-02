@@ -19,7 +19,10 @@ import Logo from '../../../components/Logo';
 import ImageDialog from "../../../components/dashboard/imageDialog";
 import {catcher} from "../../../utils/catcher";
 
-// TODO: add specifications + update specifications + add Options
+// TODO: display specifications
+// TODO: display Options
+// TODO: update specifications
+// TODO: update Options (Select Multiple)
 export default class View extends React.Component {
     constructor(props) {
         super(props);
