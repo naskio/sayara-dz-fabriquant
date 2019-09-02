@@ -4,34 +4,20 @@ import {
     IconButton,
     Hidden,
     Dialog,
-    Paper,
-    Typography,
+    Typography, Paper,
 } from '@material-ui/core';
 import {
     Add as AddIcon,
     Edit as EditIcon,
     Delete as DeleteIcon,
-    CloudUploadSharp as CloudIcon,
+    List as ListIcon, CloudUploadSharp as CloudIcon,
 } from '@material-ui/icons';
 import MUIDataTable from 'mui-datatables';
-import Form from './pricing.form';
+import Form from './stock.form';
 import SnackBar from '../../../components/dashboard/snackbar';
 import ConfirmationDialog from "../../../components/dashboard/confirmationDialog";
-import types from '../../../assets/data/pricingTypes';
+import OptionsList from './options.list';
 import {catcher} from "../../../utils/catcher";
-
-const reduceObjectId = (data) => {
-    return Object.entries(data).reduce(
-        (total, item) => {
-            const [k, v] = item;
-            if (k === 'object_id') {
-                total[types[data.type].field] = v;
-            } else {
-                total[k] = v;
-            }
-            return total;
-        }, {});
-};
 
 export default class View extends React.Component {
     constructor(props) {
@@ -83,33 +69,33 @@ export default class View extends React.Component {
 
     create = data => {
         this.toggleDialog();
-        const {createPricing} = this.props;
-        console.log('REQUEST:', reduceObjectId(data));
-        createPricing(reduceObjectId(data))
+        const {createVehicle} = this.props;
+        console.log('REQUEST:', data);
+        createVehicle(data)
             .then(res => {
-                this.showSnackBar(`la Tarification a été créé avec succès.`, 'success');
+                this.showSnackBar(`le Vehicule ${res.numero_chassis} a été créé avec succès.`, 'success');
             })
             .catch(catcher(this.showSnackBar));
     };
 
     update = data => {
         this.toggleDialog();
-        const {updatePricing} = this.props;
-        console.log('REQUEST:', reduceObjectId(data));
-        updatePricing(reduceObjectId(data))
+        const {updateVehicle} = this.props;
+        console.log('REQUEST:', data);
+        updateVehicle(data)
             .then(res => {
-                this.showSnackBar(`la Tarification a été modifié avec succès.`, 'success');
+                this.showSnackBar(`le Vehicule ${res.numero_chassis} a été modifié avec succès.`, 'success');
             })
             .catch(catcher(this.showSnackBar));
     };
 
     delete = data => {
         this.toggleConfirmationDialog();
-        const {deletePricing} = this.props;
-        console.log('REQUEST:', reduceObjectId(data));
-        deletePricing(reduceObjectId(data))
+        const {deleteVehicle} = this.props;
+        console.log('REQUEST:', data);
+        deleteVehicle(data)
             .then(res => {
-                this.showSnackBar(`la Tarification a été supprimé avec succès.`, 'success');
+                this.showSnackBar(`le Vehicule ${res.numero_chassis} a été supprimé avec succès.`, 'success');
             })
             .catch(catcher(this.showSnackBar));
     };
@@ -125,45 +111,53 @@ export default class View extends React.Component {
             },
         },
         {
-            name: 'prix',
-            label: 'Prix (DZD)',
+            name: 'numero_chassis',
+            label: 'Numéro de chassis',
             options: {
                 filter: false,
                 sort: true,
             },
         },
         {
-            name: 'type',
-            label: 'Type de tarification',
+            name: 'nom_concessionnaire',
+            label: 'Nom de concessionnaire',
+            options: {
+                filter: false,
+                sort: true,
+            },
+        },
+        {
+            name: 'version',
+            label: 'Version',
             options: {
                 filter: true,
                 sort: true,
             },
         },
         {
-            name: 'tarification',
-            label: 'Tarification',
+            name: 'couleur',
+            label: 'Couleur',
             options: {
-                filter: false,
+                filter: true,
                 sort: true,
             },
         },
         {
-            name: 'date_debut',
-            label: 'Date Début',
+            name: 'options',
+            label: 'Options',
             options: {
                 filter: false,
-                sort: true,
+                sort: false,
             },
         },
-        {
-            name: 'date_fin',
-            label: 'Date Fin',
-            options: {
-                filter: false,
-                sort: true,
-            },
-        },
+        // {
+        //     name: 'disponible',
+        //     label: 'Status',
+        //     options: {
+        //         filter: true,
+        //         sort: true,
+        //     },
+        // },
         {
             name: 'actions',
             label: 'Actions',
@@ -181,7 +175,7 @@ export default class View extends React.Component {
         rowsPerPage: 10,
         textLabels: {
             body: {
-                noMatch: "Aucune tarification existante.",
+                noMatch: "Aucun véhicule existante.",
                 toolTip: "Trier",
             },
             pagination: {
@@ -213,19 +207,19 @@ export default class View extends React.Component {
             },
         },
         customToolbar: () => (
-            <Tooltip title="Ajouter une Tarification" aria-label="Ajouter">
+            <Tooltip title="Ajouter un véhicule" aria-label="Ajouter">
                 <IconButton
                     onClick={() => {
                         this.setState({
                                 formOnSubmit: this.create,
                                 formInitialValues: {
-                                    prix: '',
-                                    type: '',
-                                    object_id: '',
-                                    date_debut: '',
-                                    date_fin: '',
+                                    numero_chassis: '',
+                                    version: '',
+                                    couleur: '',
+                                    options: [],
+                                    nom_concessionnaire: ''
                                 },
-                                formTitle: 'Ajouter une Tarification',
+                                formTitle: 'Ajouter un Véhicule',
                             },
                             this.toggleDialog);
                     }}
@@ -243,10 +237,10 @@ export default class View extends React.Component {
             const file = event.target.files[0];
             const form = new FormData();
             form.append('file', file);
-            const {uploadPricing} = this.props;
-            uploadPricing(form)
+            const {uploadVehicles} = this.props;
+            uploadVehicles(form)
                 .then(res => {
-                    this.showSnackBar(`la Tarification a été uploader avec succès.`, 'success');
+                    this.showSnackBar(`le fichier stock a été uploader avec succès.`, 'success');
                 })
                 .catch(catcher(this.showSnackBar));
         }
@@ -267,10 +261,10 @@ export default class View extends React.Component {
         } = this.state;
         const {
             // classes,
-            options,
             versions,
             colors,
-            pricing,
+            options,
+            vehicles,
         } = this.props;
         return (
             <div>
@@ -281,7 +275,7 @@ export default class View extends React.Component {
                            className="d-flex flex-row justify-content-between align-items-center p-4"
                     >
                         <Typography variant="h6" component="h6">
-                            Uploader un nouveau fichier de tarification
+                            Uploader un nouveau fichier du stock
                         </Typography>
                         <span style={{
                             fontSize: 64,
@@ -301,21 +295,22 @@ export default class View extends React.Component {
                         />
                     </Paper>
                 </div>
-                <
-                    Hidden
-                    xsDown>
-                    < MUIDataTable
-                        title="Gestion des tarifs"
+                <Hidden xsDown>
+                    <MUIDataTable
+                        title="Gestion du stock"
                         data={
-                            Object.entries(pricing).map(([k, v]) =>
+                            Object.entries(vehicles).map(([k, v]) =>
                                 [
                                     v.id,
-                                    v.prix,
-                                    types[v.type].label,
-                                    this.props[types[v.type].collection] ?
-                                        this.props[types[v.type].collection][v[types[v.type].field]].nom : '',
-                                    v.date_debut,
-                                    v.date_fin,
+                                    <Typography variant="h6" style={{paddingLeft: 16}}>
+                                        {v.numero_chassis}
+                                    </Typography>,
+                                    v.nom_concessionnaire,
+                                    versions && versions[v.version] ? versions[v.version].nom : '',
+                                    colors && colors[v.couleur] ? colors[v.couleur].nom : '',
+                                    <OptionsList icon={ListIcon} id={v.id} list={v.options.map(key => options[key])}
+                                                 field='nom'/>,
+                                    // v.disponible,
                                     <>
                                         <IconButton color="inherit" onClick={
                                             () => {
@@ -323,13 +318,13 @@ export default class View extends React.Component {
                                                         formOnSubmit: this.update,
                                                         formInitialValues: {
                                                             id: v.id,
-                                                            prix: v.prix,
-                                                            type: v.type,
-                                                            object_id: v[types[v.type].field],
-                                                            date_debut: v.date_debut,
-                                                            date_fin: v.date_fin,
+                                                            numero_chassis: v.numero_chassis,
+                                                            version: v.version,
+                                                            couleur: v.couleur,
+                                                            options: v.options || [],
+                                                            nom_concessionnaire: v.nom_concessionnaire,
                                                         },
-                                                        formTitle: `Modifier les tarifs de ${this.props[types[v.type].collection].nom}`,
+                                                        formTitle: `Modifier le Vehicule ${v.numero_chassis}`,
                                                     },
                                                     this.toggleDialog);
                                             }
@@ -341,7 +336,7 @@ export default class View extends React.Component {
                                                 this.setState({
                                                         confirmationAction: () => this.delete(v),
                                                         confirmationTitle: `Etes-vous sûr de vouloir supprimer 
-                                                            la tarification ${this.props[types[v.type].collection].nom} ? 
+                                                            le vehicule ${v.numero_chassis} ? 
                                                             Cette action est irréversible`,
                                                     },
                                                     this.toggleConfirmationDialog);
@@ -370,9 +365,9 @@ export default class View extends React.Component {
                                 onSubmit={formOnSubmit}
                                 initialValues={formInitialValues}
                                 onCancel={this.toggleDialog}
-                                versions={versions}
                                 colors={colors}
-                                options={options}
+                                options_all={options}
+                                versions={versions}
                             />
                         )
                     }

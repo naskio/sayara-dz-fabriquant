@@ -11,6 +11,7 @@ import {fetchColors} from "../../redux/logics/colors";
 import {fetchVideos} from "../../redux/logics/videos";
 import {fetchImages} from "../../redux/logics/images";
 import {fetchPricing} from "../../redux/logics/pricing";
+import {fetchVehicles} from "../../redux/logics/vehicles";
 
 const mapStateToProps = state => ({
     token: (!!state.user.token ? state.user.token : getSessionToken()),
@@ -28,6 +29,7 @@ const mapDispatchToProps = dispatch => ({
     fetchImages: () => dispatch(fetchImages()),
     fetchVideos: () => dispatch(fetchVideos()),
     fetchPricing: () => dispatch(fetchPricing()),
+    fetchVehicles: () => dispatch(fetchVehicles()),
 });
 
 export default connect(

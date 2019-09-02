@@ -13,6 +13,7 @@ import {
     List,
     Tooltip,
     Badge,
+    CircularProgress,
 } from "@material-ui/core";
 import classNames from 'classnames';
 import {withStyles} from '@material-ui/core/styles';
@@ -24,6 +25,7 @@ import {
     ChevronLeft as ChevronLeftIcon,
     ChevronRight as ChevronRightIcon,
     Notifications as NotificationsIcon,
+    Refresh as RefreshIcon,
 } from "@material-ui/icons";
 import routes from "../../routing/routes";
 import styled from "styled-components";
@@ -47,6 +49,7 @@ class View extends React.PureComponent {
             openDrawer: true,
             openLogoutDialog: false,
             openPopupNotifs: false,
+            refreshing: false,
         };
     }
 
@@ -73,6 +76,7 @@ class View extends React.PureComponent {
         //     fetchImages,
         //     fetchVideos,
         //     fetchPricing,
+        //     fetchVehicles,
         // } = this.props;
         //
         // fetchProfile();
@@ -84,7 +88,7 @@ class View extends React.PureComponent {
         // fetchImages();
         // fetchVideos();
         // fetchPricing();
-
+        // fetchVehicles();
         // TODO: make requests here
     }
 
@@ -110,9 +114,41 @@ class View extends React.PureComponent {
         this.setState({openPopupNotifs: false});
     };
 
+    handleRefresh = () => {
+        const {refreshing} = this.state;
+        if (!refreshing) {
+            const {
+                fetchProfile,
+                fetchModels,
+                fetchVersions,
+                fetchCategories,
+                fetchOptions,
+                fetchColors,
+                fetchImages,
+                fetchVideos,
+                fetchPricing,
+                fetchVehicles,
+            } = this.props;
+
+            this.setState({refreshing: true});
+            Promise.all(
+                [fetchProfile(),
+                    fetchModels(),
+                    fetchVersions(),
+                    fetchCategories(),
+                    fetchOptions(),
+                    fetchColors(),
+                    fetchImages(),
+                    fetchVideos(),
+                    fetchPricing(),
+                    fetchVehicles()]
+            ).then(() => this.setState({refreshing: false}));
+        }
+    };
+
     render() {
         const {match, logout, classes} = this.props;
-        const {openDrawer, openLogoutDialog, openPopupNotifs} = this.state;
+        const {openDrawer, openLogoutDialog, openPopupNotifs, refreshing} = this.state;
         const {params: {page = Object.entries(routes)[0][0]}} = match;
         const popupNotifsId = openPopupNotifs ? 'popup-notifications-id' : undefined;
 
@@ -135,6 +171,15 @@ class View extends React.PureComponent {
                         <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
                             {routes[page].label}
                         </Typography>
+
+                        {/*Refresh Button*/}
+                        <IconButton color="inherit" onClick={this.handleRefresh} disabled={refreshing}>
+                            {
+                                refreshing ?
+                                    (<CircularProgress/>) :
+                                    <RefreshIcon/>
+                            }
+                        </IconButton>
 
                         <IconButton
                             color="inherit"

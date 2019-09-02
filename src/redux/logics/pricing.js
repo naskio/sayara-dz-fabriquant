@@ -5,7 +5,7 @@ import {
     createDataAction,
     deleteDataAction,
     updateDataAction,
-    uploadDataAction,
+    // uploadDataAction,
     // resetDataAction,
 } from "../actions/data";
 

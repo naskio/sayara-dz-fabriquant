@@ -8,7 +8,8 @@ import Versions from '../views/dashboard/versions';
 // import Colors from '../views/dashboard/colors';
 // import Videos from '../views/dashboard/videos';
 // import Images from '../views/dashboard/images';
-import Pricing from '../views/dashboard/pricing';
+// import Pricing from '../views/dashboard/pricing';
+// import Stock from '../views/dashboard/stock';
 
 export default {
     // home: {
@@ -21,16 +22,16 @@ export default {
         icon: CarIcon,
         component: (props) => (<div>Hello Orders</div>),
     },
-    stock: {
-        label: 'Stock',
-        icon: CarIcon,
-        component: (props) => (<div>Hello Stock</div>),
-    },
-    pricing: {
-        label: 'Tarification',
-        icon: CarIcon,
-        component: Pricing,
-    },
+    // stock: {
+    //     label: 'Stock',
+    //     icon: CarIcon,
+    //     component: Stock,
+    // },
+    // pricing: {
+    //     label: 'Tarification',
+    //     icon: CarIcon,
+    //     component: Pricing,
+    // },
     // models: {
     //     label: 'Modèles',
     //     icon: CarIcon,

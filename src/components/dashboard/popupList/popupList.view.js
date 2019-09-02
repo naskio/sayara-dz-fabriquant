@@ -15,7 +15,9 @@ class View extends React.PureComponent {
     render() {
         const {open, anchorEl, handleClose, children, id} = this.props;
         return (
-            <Popper open={open} anchorEl={anchorEl} transition disablePortal>
+            <Popper open={open} anchorEl={anchorEl} transition disablePortal style={{
+                zIndex: 100,
+            }}>
                 {({TransitionProps, placement}) => (
                     <Grow
                         {...TransitionProps}
