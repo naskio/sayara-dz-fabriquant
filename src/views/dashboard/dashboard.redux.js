@@ -2,7 +2,7 @@ import {connect} from "react-redux";
 import View from "./dashboard.view";
 import {getSessionToken} from "../../utils/session";
 import {logout, fetchProfile} from "../../redux/logics/user";
-import {setTitle} from "../../redux/logics/config";
+import {setIsLoaded, setTitle} from "../../redux/logics/config";
 import {fetchModels} from "../../redux/logics/models";
 import {fetchVersions} from "../../redux/logics/versions";
 import {fetchCategories} from "../../redux/logics/categories";
@@ -15,6 +15,7 @@ import {fetchVehicles} from "../../redux/logics/vehicles";
 
 const mapStateToProps = state => ({
     token: (!!state.user.token ? state.user.token : getSessionToken()),
+    isLoaded: state.user.isLoaded,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -30,6 +31,7 @@ const mapDispatchToProps = dispatch => ({
     fetchVideos: () => dispatch(fetchVideos()),
     fetchPricing: () => dispatch(fetchPricing()),
     fetchVehicles: () => dispatch(fetchVehicles()),
+    setIsLoaded: (isLoaded) => dispatch(setIsLoaded(isLoaded)),
 });
 
 export default connect(

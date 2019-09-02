@@ -62,34 +62,36 @@ class View extends React.PureComponent {
     }
 
     componentDidMount() {
-        const {match, setTitle} = this.props;
+        const {match, setTitle, setIsLoaded, isLoaded} = this.props;
         const {params: {page = Object.entries(routes)[0][0]}} = match;
         setTitle(`Sayara Dz - ${routes[page].label}`);
 
-        // const {
-        //     fetchProfile,
-        //     fetchModels,
-        //     fetchVersions,
-        //     fetchCategories,
-        //     fetchOptions,
-        //     fetchColors,
-        //     fetchImages,
-        //     fetchVideos,
-        //     fetchPricing,
-        //     fetchVehicles,
-        // } = this.props;
-        //
-        // fetchProfile();
-        // fetchModels();
-        // fetchVersions();
-        // fetchCategories();
-        // fetchOptions();
-        // fetchColors();
-        // fetchImages();
-        // fetchVideos();
-        // fetchPricing();
-        // fetchVehicles();
-        // TODO: make requests here
+        if (!isLoaded) {
+            setIsLoaded(true);
+            const {
+                fetchProfile,
+                fetchModels,
+                fetchVersions,
+                fetchCategories,
+                fetchOptions,
+                fetchColors,
+                fetchImages,
+                fetchVideos,
+                fetchPricing,
+                fetchVehicles,
+            } = this.props;
+            fetchProfile();
+            fetchModels();
+            fetchVersions();
+            fetchCategories();
+            fetchOptions();
+            fetchColors();
+            fetchImages();
+            fetchVideos();
+            fetchPricing();
+            fetchVehicles();
+            // TODO: make requests here
+        }
     }
 
     toggleDrawer = () => {
@@ -132,7 +134,8 @@ class View extends React.PureComponent {
 
             this.setState({refreshing: true});
             Promise.all(
-                [fetchProfile(),
+                [
+                    fetchProfile(),
                     fetchModels(),
                     fetchVersions(),
                     fetchCategories(),
@@ -141,7 +144,8 @@ class View extends React.PureComponent {
                     fetchImages(),
                     fetchVideos(),
                     fetchPricing(),
-                    fetchVehicles()]
+                    fetchVehicles(),
+                ]
             ).then(() => this.setState({refreshing: false}));
         }
     };
@@ -176,7 +180,7 @@ class View extends React.PureComponent {
                         <IconButton color="inherit" onClick={this.handleRefresh} disabled={refreshing}>
                             {
                                 refreshing ?
-                                    (<CircularProgress/>) :
+                                    (<CircularProgress color='secondary' size={20}/>) :
                                     <RefreshIcon/>
                             }
                         </IconButton>

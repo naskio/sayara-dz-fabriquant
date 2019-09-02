@@ -2,6 +2,7 @@ export default {
     config: {
         remember_me: false,
         title: 'Sayara Dz - Fabriquant',
+        isLoaded: false,
     },
     user: {
         id: 0,
