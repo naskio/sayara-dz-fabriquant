@@ -1,15 +1,15 @@
-import React from "react";
+// import React from "react";
 import {
     DirectionsCar as CarIcon,
 } from "@material-ui/icons";
-// import Models from '../views/dashboard/models';
+import Models from '../views/dashboard/models';
 import Versions from '../views/dashboard/versions';
-// import Options from '../views/dashboard/options';
-// import Colors from '../views/dashboard/colors';
-// import Videos from '../views/dashboard/videos';
-// import Images from '../views/dashboard/images';
-// import Pricing from '../views/dashboard/pricing';
-// import Stock from '../views/dashboard/stock';
+import Options from '../views/dashboard/options';
+import Colors from '../views/dashboard/colors';
+import Videos from '../views/dashboard/videos';
+import Images from '../views/dashboard/images';
+import Pricing from '../views/dashboard/pricing';
+import Stock from '../views/dashboard/stock';
 
 export default {
     // home: {
@@ -17,56 +17,56 @@ export default {
     //     icon: CarIcon,
     //     component: (props) => (<div>Hello home</div>),
     // },
-    orders: {
-        label: 'Commandes',
+    // orders: {
+    //     label: 'Commandes',
+    //     icon: CarIcon,
+    //     component: (props) => (<div>Hello Orders</div>),
+    // },
+    stock: {
+        label: 'Stock',
         icon: CarIcon,
-        component: (props) => (<div>Hello Orders</div>),
+        component: Stock,
     },
-    // stock: {
-    //     label: 'Stock',
-    //     icon: CarIcon,
-    //     component: Stock,
-    // },
-    // pricing: {
-    //     label: 'Tarification',
-    //     icon: CarIcon,
-    //     component: Pricing,
-    // },
-    // models: {
-    //     label: 'Modèles',
-    //     icon: CarIcon,
-    //     component: Models,
-    // },
+    pricing: {
+        label: 'Tarification',
+        icon: CarIcon,
+        component: Pricing,
+    },
+    models: {
+        label: 'Modèles',
+        icon: CarIcon,
+        component: Models,
+    },
     versions: {
         label: 'Versions',
         icon: CarIcon,
         component: Versions,
     },
-    // images: {
-    //     label: 'Images',
-    //     icon: CarIcon,
-    //     component: Images,
-    // },
-    // videos: {
-    //     label: 'Videos',
-    //     icon: CarIcon,
-    //     component: Videos,
-    // },
-    // colors: {
-    //     label: 'Couleurs',
-    //     icon: CarIcon,
-    //     component: Colors,
-    // },
-    // options: {
-    //     label: 'Options',
-    //     icon: CarIcon,
-    //     component: Options,
-    // },
-    simulation: {
-        label: 'Simulation du prix',
+    images: {
+        label: 'Images',
         icon: CarIcon,
-        component: (props) => (<div>Hello Simulation</div>),
+        component: Images,
     },
+    videos: {
+        label: 'Videos',
+        icon: CarIcon,
+        component: Videos,
+    },
+    colors: {
+        label: 'Couleurs',
+        icon: CarIcon,
+        component: Colors,
+    },
+    options: {
+        label: 'Options',
+        icon: CarIcon,
+        component: Options,
+    },
+    // simulation: {
+    //     label: 'Simulation du prix',
+    //     icon: CarIcon,
+    //     component: (props) => (<div>Hello Simulation</div>),
+    // },
 };
 
 /*
