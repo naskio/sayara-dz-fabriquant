@@ -4,7 +4,6 @@ import {
     IconButton,
     Hidden,
     Dialog,
-    Typography,
 } from '@material-ui/core';
 import {
     Add as AddIcon,
@@ -16,8 +15,8 @@ import Form from './colors.form';
 import SnackBar from '../../../components/dashboard/snackbar';
 import ConfirmationDialog from "../../../components/dashboard/confirmationDialog";
 import Logo from '../../../components/Logo';
-import {simpleContrast} from "../../../utils/colors";
 import ImageDialog from "../../../components/dashboard/imageDialog";
+import ColorPreview from "../../../components/colorPreview";
 import {catcher} from "../../../utils/catcher";
 
 
@@ -128,7 +127,7 @@ export default class View extends React.Component {
         },
         {
             name: 'code_couleur',
-            label: 'Code',
+            label: 'Code (Référence)',
             options: {
                 filter: false,
                 sort: true,
@@ -209,6 +208,7 @@ export default class View extends React.Component {
                                 formInitialValues: {
                                     nom: '',
                                     code_couleur: '',
+                                    code_hexa: '',
                                     modele: '',
                                     modele_image: '',
                                 },
@@ -253,16 +253,8 @@ export default class View extends React.Component {
                             !!models && !!colors ? Object.entries(colors).map(([k, v]) =>
                                 [
                                     v.id,
-                                    <Typography variant="h6" style={{paddingLeft: 16}}>
-                                        {v.nom}
-                                    </Typography>,
-                                    <div style={{
-                                        backgroundColor: v.code_couleur,
-                                        padding: 8,
-                                        borderRadius: 8,
-                                        textAlign: 'center',
-                                        color: simpleContrast(v.code_couleur),
-                                    }}>{v.code_couleur}</div>,
+                                    <ColorPreview color={v.code_hexa} text={v.nom}/>,
+                                    v.code_couleur,
                                     v.modele && models[v.modele] ? models[v.modele].nom : '',
                                     v.modele_image ? <Logo alt="logo"
                                                            src={v.modele_image}
@@ -281,6 +273,7 @@ export default class View extends React.Component {
                                                             id: v.id,
                                                             nom: v.nom,
                                                             code_couleur: v.code_couleur,
+                                                            code_hexa: v.code_hexa,
                                                             modele: v.modele,
                                                             modele_image: v.modele_image,
                                                         },

@@ -18,7 +18,8 @@ import {SketchPicker} from 'react-color';
 
 const validationSchema = Yup.object({
     nom: Yup.string("Entrez le nom de la couleur").required("Ce champs est obligatoire"),
-    code_couleur: Yup.string("Entrez le code de la couleur").matches(colorRegex, 'Veuillez entrez un code hex de couleur').required("Ce champs est obligatoire"),
+    code_couleur: Yup.string("Entrez la référence de la couleur").required("Ce champs est obligatoire"),
+    code_hexa: Yup.string("Entrez la couleur (format Hexadécimal)").matches(colorRegex, 'Veuillez entrez un code hex de couleur').required("Ce champs est obligatoire"),
     modele: Yup.number("Choississez le modèle de la couleur").required("Ce champs est obligatoire"),
     modele_image: Yup.string("Veuillez choisir une image")
         .required("Ce champs est obligatoire"),
@@ -37,6 +38,7 @@ class View extends React.Component {
                         values: {
                             nom,
                             code_couleur,
+                            code_hexa,
                             modele,
                             modele_image,
                         },
@@ -78,16 +80,27 @@ class View extends React.Component {
                                         margin="normal"
                                         name="code_couleur"
                                         className={classes.textFieldFull}
-                                        placeholder="Code de la Couleur"
+                                        placeholder="Code (Référence)"
                                         helperText={touched.code_couleur ? errors.code_couleur : ""}
                                         error={touched.code_couleur && Boolean(errors.code_couleur)}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
                                         value={code_couleur}
                                     />
+                                    <TextField
+                                        margin="normal"
+                                        name="code_hexa"
+                                        className={classes.textFieldFull}
+                                        placeholder="La Couleur (Hexa)"
+                                        helperText={touched.code_hexa ? errors.code_hexa : ""}
+                                        error={touched.code_hexa && Boolean(errors.code_hexa)}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={code_hexa}
+                                    />
                                     <SketchPicker
-                                        color={code_couleur}
-                                        onChangeComplete={(color) => setFieldValue('code_couleur', color.hex)}
+                                        color={code_hexa}
+                                        onChangeComplete={(color) => setFieldValue('code_hexa', color.hex)}
                                     />
                                     <TextField
                                         select

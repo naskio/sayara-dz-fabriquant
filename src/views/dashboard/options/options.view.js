@@ -17,6 +17,8 @@ import SnackBar from '../../../components/dashboard/snackbar';
 import ConfirmationDialog from "../../../components/dashboard/confirmationDialog";
 import {catcher} from "../../../utils/catcher";
 
+
+// TODO: add couleur_hex attribute
 export default class View extends React.Component {
     constructor(props) {
         super(props);

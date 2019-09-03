@@ -4,7 +4,7 @@ import 'firebase/storage';
 import {uuidv4} from '../../../utils/uuid';
 import ImageUploader from 'react-images-upload';
 import {
-    LinearProgress,
+    LinearProgress, TextField,
     Typography,
 } from '@material-ui/core';
 import config from '../../../config/firebase';
@@ -17,9 +17,13 @@ const Preview = styled.img`
   background-color: transparent;
 `;
 
+// const ENABLE_URL = false;
+
 /**
  * Image uploader
  */
+
+// TODO: add url input so we can add links directly from other websites
 class Uploader extends Component {
     constructor(props) {
         super(props);
@@ -94,6 +98,21 @@ class Uploader extends Component {
                         value={percentage}
                     />
                 }
+                {/*{*/}
+                {/*    ENABLE_URL && (*/}
+                {/*        <TextField*/}
+                {/*            margin="normal"*/}
+                {/*            name={name}*/}
+                {/*            className={classes.textField}*/}
+                {/*            placeholder="Lien du l'image"*/}
+                {/*            helperText={touched.code_modele ? errors.code_modele : ""}*/}
+                {/*            error={touched.code_modele && Boolean(errors.code_modele)}*/}
+                {/*            onChange={handleChange}*/}
+                {/*            onBlur={handleBlur}*/}
+                {/*            value={code_modele}*/}
+                {/*        />*/}
+                {/*    )*/}
+                {/*}*/}
                 <ImageUploader
                     name={name}
                     withIcon
