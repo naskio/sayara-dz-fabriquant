@@ -10,6 +10,7 @@ import {
     Add as AddIcon,
     Edit as EditIcon,
     Delete as DeleteIcon,
+    List as ListIcon,
 } from '@material-ui/icons';
 import MUIDataTable from 'mui-datatables';
 import Form from './versions.form';
@@ -18,11 +19,11 @@ import ConfirmationDialog from "../../../components/dashboard/confirmationDialog
 import Logo from '../../../components/Logo';
 import ImageDialog from "../../../components/dashboard/imageDialog";
 import {catcher} from "../../../utils/catcher";
+import OptionsList from "../../../components/list";
 
-// TODO: display specifications
-// TODO: display Options
-// TODO: update specifications
-// TODO: update Options (Select Multiple)
+// TODO
+// display specifications
+// update specifications
 export default class View extends React.Component {
     constructor(props) {
         super(props);
@@ -163,6 +164,16 @@ export default class View extends React.Component {
             },
         },
         {
+            name: 'options',
+            label: 'Options',
+            options: {
+                filter: false,
+                sort: false,
+                print: false,
+                download: false,
+            },
+        },
+        {
             name: 'actions',
             label: 'Actions',
             options: {
@@ -221,6 +232,7 @@ export default class View extends React.Component {
                                     code_version: '',
                                     modele: '',
                                     image: '',
+                                    options: [],
                                 },
                                 formTitle: 'Ajouter une Version',
                             },
@@ -253,6 +265,7 @@ export default class View extends React.Component {
             // classes,
             models,
             versions,
+            options,
         } = this.props;
         return (
             <div>
@@ -274,6 +287,9 @@ export default class View extends React.Component {
                                             this.setState({imageDialogUrl: v.image}, this.toggleImageDialog)
                                         }
                                     }/> : <></>,
+                                    <OptionsList icon={ListIcon} id={v.id}
+                                                 list={v.option}
+                                                 field='nom'/>,
                                     <>
                                         <IconButton color="inherit" onClick={
                                             () => {
@@ -285,6 +301,9 @@ export default class View extends React.Component {
                                                             code_version: v.code_version,
                                                             modele: v.modele,
                                                             image: v.image,
+                                                            options: v.option
+                                                                .filter(item => !!item.valeur)
+                                                                .map(item => item.id),
                                                         },
                                                         formTitle: `Modifier la Version ${v.nom}`,
                                                     },
@@ -328,6 +347,7 @@ export default class View extends React.Component {
                                 initialValues={formInitialValues}
                                 onCancel={this.toggleDialog}
                                 models={models}
+                                options_all={options}
                             />
                         )
                     }

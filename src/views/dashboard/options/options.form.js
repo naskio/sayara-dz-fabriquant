@@ -16,8 +16,7 @@ import styles from '../../../styles/material_ui/forms.style';
 const validationSchema = Yup.object({
     nom: Yup.string("Entrez le nom de la version").required("Ce champs est obligatoire"),
     code_option: Yup.string("Entrez le code de l'option").required("Ce champs est obligatoire"),
-    category: Yup.number("Choississez la catégorie de l'option"),
-    // .required("Ce champs est obligatoire"),
+    category: Yup.number("Choississez la catégorie de l'option").required("Ce champs est obligatoire"),
     modele: Yup.number("Choississez le modèle de l'option").required("Ce champs est obligatoire"),
 });
 

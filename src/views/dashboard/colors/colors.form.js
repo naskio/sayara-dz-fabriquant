@@ -13,7 +13,7 @@ import {
 import ImageUploader from '../../../components/dashboard/imageUploader';
 import {withStyles} from '@material-ui/core/styles';
 import styles from '../../../styles/material_ui/forms.style';
-import {colorRegex} from "../../../utils/regex";
+import {colorRegex, secureUrlRegex} from "../../../utils/regex";
 import {SketchPicker} from 'react-color';
 
 const validationSchema = Yup.object({
@@ -22,6 +22,7 @@ const validationSchema = Yup.object({
     code_hexa: Yup.string("Entrez la couleur (format Hexadécimal)").matches(colorRegex, 'Veuillez entrez un code hex de couleur').required("Ce champs est obligatoire"),
     modele: Yup.number("Choississez le modèle de la couleur").required("Ce champs est obligatoire"),
     modele_image: Yup.string("Veuillez choisir une image")
+        .matches(secureUrlRegex, "Veuillez entrez un lien valide d'image")
         .required("Ce champs est obligatoire"),
 });
 
@@ -130,6 +131,9 @@ class View extends React.Component {
                                         value={modele_image}
                                         helperText={touched.modele_image ? errors.modele_image : ""}
                                         error={touched.modele_image && Boolean(errors.modele_image)}
+                                        handleBlur={handleBlur}
+                                        classes={classes}
+                                        handleChange={handleChange}
                                     />
                                 </form>
                             </DialogContent>

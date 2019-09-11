@@ -9,16 +9,13 @@ import {
     DialogActions,
     TextField,
 } from "@material-ui/core";
-// import ImageUploader from '../../../components/dashboard/imageUploader';
 import {withStyles} from '@material-ui/core/styles';
 import styles from '../../../styles/material_ui/forms.style';
 
 const validationSchema = Yup.object({
-    // id: Yup.number(),
     nom: Yup.string("Entrez le nom de modèle").required("Ce champs est obligatoire"),
     code_modele: Yup.string("Entrez le code de modèle").required("Ce champs est obligatoire"),
     prix_base: Yup.number("Entrez le prix de base de modèle").required("Ce champs est obligatoire"),
-    // image: Yup.string("Veuillez choisir une image").required("Ce champs est obligatoire"),
 });
 
 class View extends React.Component {
@@ -94,25 +91,9 @@ class View extends React.Component {
                                         onBlur={handleBlur}
                                         value={prix_base}
                                     />
-                                    {/*<ImageUploader*/}
-                                    {/*    name="image"*/}
-                                    {/*    setFieldValue={setFieldValue}*/}
-                                    {/*    setFieldTouched={setFieldTouched}*/}
-                                    {/*    setFieldError={setFieldError}*/}
-                                    {/*    value={image}*/}
-                                    {/*    helperText={touched.image ? errors.image : ""}*/}
-                                    {/*    error={touched.image && Boolean(errors.image)}*/}
-                                    {/*/>*/}
                                 </form>
                             </DialogContent>
                             <DialogActions>
-                                {/*{*/}
-                                {/*    isSubmitting ?*/}
-                                {/*        <CircularProgress*/}
-                                {/*            variant="indeterminate"*/}
-                                {/*            color="primary"*/}
-                                {/*        /> :*/}
-                                {/*        <>*/}
                                 <Button onClick={onCancel}
                                         color='primary'
                                         variant="text"
@@ -128,8 +109,6 @@ class View extends React.Component {
                                 >
                                     Enregistrer
                                 </Button>
-                                {/*        </>*/}
-                                {/*}*/}
                             </DialogActions>
                         </>
                     );

@@ -16,7 +16,8 @@ import {fetchOrders} from "../../redux/logics/orders";
 
 const mapStateToProps = state => ({
     token: (!!state.user.token ? state.user.token : getSessionToken()),
-    isLoaded: state.user.isLoaded,
+    isLoaded: state.config.isLoaded,
+    user: state.user,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -9,6 +9,7 @@ import {
 } from '@material-ui/core';
 import config from '../../../config/firebase';
 import styled from "styled-components";
+import {ENABLE_IMAGE_URL} from "../../../config/config";
 
 const Preview = styled.img`
   height: 8rem;
@@ -17,13 +18,10 @@ const Preview = styled.img`
   background-color: transparent;
 `;
 
-// const ENABLE_URL = false;
-
 /**
  * Image uploader
  */
 
-// TODO: add url input so we can add links directly from other websites
 class Uploader extends Component {
     constructor(props) {
         super(props);
@@ -80,6 +78,9 @@ class Uploader extends Component {
             helperText,
             value,
             label,
+            classes,
+            handleBlur,
+            handleChange,
         } = this.props;
         return (
             <div className="p-2 col-12 d-flex flex-column align-items-center justify-content-center">
@@ -98,23 +99,23 @@ class Uploader extends Component {
                         value={percentage}
                     />
                 }
-                {/*{*/}
-                {/*    ENABLE_URL && (*/}
-                {/*        <TextField*/}
-                {/*            margin="normal"*/}
-                {/*            name={name}*/}
-                {/*            className={classes.textField}*/}
-                {/*            placeholder="Lien du l'image"*/}
-                {/*            helperText={touched.code_modele ? errors.code_modele : ""}*/}
-                {/*            error={touched.code_modele && Boolean(errors.code_modele)}*/}
-                {/*            onChange={handleChange}*/}
-                {/*            onBlur={handleBlur}*/}
-                {/*            value={code_modele}*/}
-                {/*        />*/}
-                {/*    )*/}
-                {/*}*/}
+                {
+                    ENABLE_IMAGE_URL && !!classes && (
+                        <TextField
+                            margin="normal"
+                            name={name}
+                            className={classes.textField}
+                            placeholder="Lien du l'image"
+                            helperText={helperText}
+                            error={error}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={value}
+                        />
+                    )
+                }
                 <ImageUploader
-                    name={name}
+                    // name={name}
                     withIcon
                     buttonText="Choisir une images"
                     onChange={this.handleChange}

@@ -23,7 +23,6 @@ const validationSchema = Yup.object({
         Yup.string("Choisir une option")
             .required("Ce champs est obligatoire")
     ),
-    // .required("Ce champs est obligatoire"),
     nom_concessionnaire: Yup.string("Entrez le nom de concessionnaire").required("Ce champs est obligatoire"),
 });
 

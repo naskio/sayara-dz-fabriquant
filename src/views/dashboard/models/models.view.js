@@ -20,8 +20,6 @@ import ImageDialog from "../../../components/dashboard/imageDialog";
 import {catcher} from "../../../utils/catcher";
 
 
-// Add show options
-// Add show colors
 export default class View extends React.Component {
     constructor(props) {
         super(props);

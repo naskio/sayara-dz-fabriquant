@@ -16,7 +16,7 @@ import MUIDataTable from 'mui-datatables';
 import Form from './stock.form';
 import SnackBar from '../../../components/dashboard/snackbar';
 import ConfirmationDialog from "../../../components/dashboard/confirmationDialog";
-import OptionsList from './options.list';
+import OptionsList from './../../../components/list';
 import {catcher} from "../../../utils/catcher";
 
 export default class View extends React.Component {
@@ -231,7 +231,6 @@ export default class View extends React.Component {
         selectableRows: 'none',
     };
 
-    // TODO: check with backend and fix Upload Pricing
     uploadPricingFile = event => {
         if (event && event.target && event.target.files && event.target.files.length) {
             const file = event.target.files[0];

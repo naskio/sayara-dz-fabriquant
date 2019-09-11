@@ -1,6 +1,6 @@
 import React from 'react';
 import {IconButton, Typography, MenuList, ListItem} from "@material-ui/core";
-import PopUpList from "../../../components/dashboard/popupList";
+import PopUpList from "../dashboard/popupList";
 
 export default class View extends React.PureComponent {
     constructor(props) {
@@ -34,6 +34,7 @@ export default class View extends React.PureComponent {
                     }}
                     aria-owns={`popup-${id}`}
                     onClick={this.togglePopup}
+                    disabled={!(list && list.length)}
                 >
                     <Icon/>
                 </IconButton>
@@ -47,7 +48,11 @@ export default class View extends React.PureComponent {
                 >
                     {
                         list ?
-                            <MenuList style={{color: 'black', width: '25vw', maxHeight: '25vw', overflowY: 'scroll'}}>
+                            <MenuList style={{
+                                color: 'black',
+                                // width: '10vw',
+                                maxHeight: '25vw', overflowY: 'scroll'
+                            }}>
                                 {
                                     list.map(item => (
                                         <ListItem key={item.id}>

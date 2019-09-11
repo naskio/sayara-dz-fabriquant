@@ -16,6 +16,7 @@ import {
 import SnackBar from '../../../components/dashboard/snackbar';
 import {catcher} from "../../../utils/catcher";
 
+// TODO: display orders, reserve API too,add notifications
 export default class View extends React.Component {
     constructor(props) {
         super(props);
@@ -48,15 +49,14 @@ export default class View extends React.Component {
         });
     };
 
-    simulate = (data) => {
-        const {simulate} = this.props;
-        simulate(data)
-            .then(res => {
-                console.log('res', res);
-                // TODO this.setState({});
-            })
-            .catch(catcher(this.showSnackBar));
-    };
+    // simulate = (data) => {
+    //     const {simulate} = this.props;
+    //     simulate(data)
+    //         .then(res => {
+    //             console.log('res', res);
+    //         })
+    //         .catch(catcher(this.showSnackBar));
+    // };
 
     render() {
         const {

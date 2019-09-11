@@ -14,12 +14,15 @@ import ImageUploader from '../../../components/dashboard/imageUploader';
 import {withStyles} from '@material-ui/core/styles';
 import styles from '../../../styles/material_ui/forms.style';
 import types from '../../../assets/data/imageTypes';
+import {secureUrlRegex} from "../../../utils/regex";
 
 const validationSchema = Yup.object({
     titre: Yup.string("Entrez le titre de l'image").required("Ce champs est obligatoire"),
     type: Yup.number("Veuillez choisir le type de l'image").required("Ce champs est obligatoire"),
     modele: Yup.number("Choississez le modèle").required("Ce champs est obligatoire"),
-    url: Yup.string("Veuillez choisir une image").required("Ce champs est obligatoire"),
+    url: Yup.string("Veuillez choisir une image")
+        .matches(secureUrlRegex, "Veuillez entrez un lien valide d'image")
+        .required("Ce champs est obligatoire"),
 });
 
 class View extends React.Component {
@@ -118,6 +121,9 @@ class View extends React.Component {
                                         value={url}
                                         helperText={touched.url ? errors.url : ""}
                                         error={touched.url && Boolean(errors.url)}
+                                        handleBlur={handleBlur}
+                                        classes={classes}
+                                        handleChange={handleChange}
                                     />
                                 </form>
                             </DialogContent>

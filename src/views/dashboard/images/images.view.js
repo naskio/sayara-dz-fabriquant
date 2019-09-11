@@ -20,7 +20,6 @@ import Logo from '../../../components/Logo';
 import types from '../../../assets/data/imageTypes';
 import {catcher} from "../../../utils/catcher";
 
-// TODO: add specifications + update specifications
 export default class View extends React.Component {
     constructor(props) {
         super(props);

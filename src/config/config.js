@@ -15,4 +15,6 @@ export const API = (model = undefined, id = undefined) => {
     return `${URL}/api/`;
 };
 
+export const ENABLE_IMAGE_URL = IS_DEV && true;
+
 

@@ -237,7 +237,6 @@ export default class View extends React.Component {
         selectableRows: 'none',
     };
 
-    // TODO: check with backend and fix Upload Pricing
     uploadPricingFile = event => {
         if (event && event.target && event.target.files && event.target.files.length) {
             const file = event.target.files[0];

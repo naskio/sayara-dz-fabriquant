@@ -16,6 +16,8 @@ import {
 import SnackBar from '../../../components/dashboard/snackbar';
 import {catcher} from "../../../utils/catcher";
 
+
+// TODO: build price estimator
 export default class View extends React.Component {
     constructor(props) {
         super(props);
@@ -53,7 +55,7 @@ export default class View extends React.Component {
         simulate(data)
             .then(res => {
                 console.log('res', res);
-                // TODO this.setState({});
+                // this.setState({});
             })
             .catch(catcher(this.showSnackBar));
     };

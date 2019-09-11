@@ -153,7 +153,7 @@ class View extends React.PureComponent {
     };
 
     render() {
-        const {match, logout, classes} = this.props;
+        const {match, logout, classes, user} = this.props;
         const {openDrawer, openLogoutDialog, openPopupNotifs, refreshing} = this.state;
         const {params: {page = Object.entries(routes)[0][0]}} = match;
         const popupNotifsId = openPopupNotifs ? 'popup-notifications-id' : undefined;
@@ -238,7 +238,8 @@ class View extends React.PureComponent {
                     open={openDrawer}
                 >
                     <div className={classes.toolbarIcon}>
-                        {/*TODO: add logo company here*/}
+                        {/*{user.marque ? user.marque.nom : ''}*/}
+                        {/*TODO: show logo company here*/}
                         <IconButton onClick={this.toggleDrawer}>
                             {
                                 openDrawer ? <ChevronLeftIcon/> : <ChevronRightIcon/>
