@@ -11,6 +11,7 @@ import {
     Edit as EditIcon,
     Delete as DeleteIcon,
     List as ListIcon,
+    DescriptionOutlined as SpecsIcon
 } from '@material-ui/icons';
 import MUIDataTable from 'mui-datatables';
 import Form from './versions.form';
@@ -20,10 +21,9 @@ import Logo from '../../../components/Logo';
 import ImageDialog from "../../../components/dashboard/imageDialog";
 import {catcher} from "../../../utils/catcher";
 import OptionsList from "../../../components/list";
+import SpecsView from "../../../components/dashboard/ficheTechnique";
+import {dataReverseTransformer, dataTransformer} from "../../../assets/data/specs";
 
-// TODO
-// display specifications
-// update specifications
 export default class View extends React.Component {
     constructor(props) {
         super(props);
@@ -78,11 +78,16 @@ export default class View extends React.Component {
         });
     };
 
+    transformData = data => (Object.entries(data).reduce((total, [key, value]) => {
+        total[key] = dataTransformer(key, value);
+        return total;
+    }, {}));
+
     create = data => {
         this.toggleDialog();
         const {createVersion} = this.props;
         console.log('REQUEST:', data);
-        createVersion(data)
+        createVersion(this.transformData(data))
             .then(res => {
                 this.showSnackBar(`Version ${res.nom} a été créé avec succès.`, 'success');
             })
@@ -93,7 +98,7 @@ export default class View extends React.Component {
         this.toggleDialog();
         const {updateVersion} = this.props;
         console.log('REQUEST:', data);
-        updateVersion(data)
+        updateVersion(this.transformData(data))
             .then(res => {
                 this.showSnackBar(`Version ${res.nom} a été modifié avec succès.`, 'success');
             })
@@ -156,6 +161,16 @@ export default class View extends React.Component {
         {
             name: 'image',
             label: 'Image',
+            options: {
+                filter: false,
+                sort: false,
+                print: false,
+                download: false,
+            },
+        },
+        {
+            name: 'characteristics',
+            label: 'Fiche Technique',
             options: {
                 filter: false,
                 sort: false,
@@ -233,6 +248,17 @@ export default class View extends React.Component {
                                     modele: '',
                                     image: '',
                                     options: [],
+                                    energie: '',
+                                    boite: '',
+                                    reservoir: '',
+                                    freins_avant: '',
+                                    freins_arriere: '',
+                                    type_moteur: '',
+                                    cylindre: '',
+                                    vitesse_max: '',
+                                    couple: '',
+                                    nbr_cylindres: '',
+                                    soupapes: '',
                                 },
                                 formTitle: 'Ajouter une Version',
                             },
@@ -287,6 +313,7 @@ export default class View extends React.Component {
                                             this.setState({imageDialogUrl: v.image}, this.toggleImageDialog)
                                         }
                                     }/> : <></>,
+                                    <SpecsView icon={SpecsIcon} id={v.id} specs={v.specifications}/>,
                                     <OptionsList icon={ListIcon} id={v.id}
                                                  list={v.option}
                                                  field='nom'/>,
@@ -304,6 +331,17 @@ export default class View extends React.Component {
                                                             options: v.option
                                                                 .filter(item => !!item.valeur)
                                                                 .map(item => item.id),
+                                                            energie: v.specifications.moteur['energie:'],
+                                                            boite: v.specifications.moteur.boite,
+                                                            reservoir: dataReverseTransformer('reservoir', v.specifications.vehicule.reservoir),
+                                                            cylindre: dataReverseTransformer('cylindre', v.specifications.moteur.cylindre),
+                                                            vitesse_max: dataReverseTransformer('vitesse_max', v.specifications.moteur.vitesse_max),
+                                                            freins_avant: v.specifications.securite.freins_avant,
+                                                            freins_arriere: v.specifications.securite.freins_arriere,
+                                                            type_moteur: v.specifications.moteur.type_moteur,
+                                                            couple: v.specifications.moteur.couple,
+                                                            nbr_cylindres: v.specifications.moteur.nbr_cylindres,
+                                                            soupapes: v.specifications.moteur.soupapes,
                                                         },
                                                         formTitle: `Modifier la Version ${v.nom}`,
                                                     },

@@ -16,7 +16,7 @@ import types from '../../../assets/data/pricingTypes';
 
 // const yesterday = new Date();
 // yesterday.setHours(yesterday.getHours() - 24);
-
+// TODO: add modele and filter according to the model
 const validationSchema = Yup.object({
     prix: Yup.number("Entrer le montant (DZD)").required("Ce champs est obligatoire"),
     type: Yup.number("Choisir le type de tarification").required("Ce champs est obligatoire"),

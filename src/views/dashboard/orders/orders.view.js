@@ -3,9 +3,10 @@ import {
     // Tooltip,
     // IconButton,
     Hidden,
+    Grid,
     // Dialog,
     // Paper,
-    // Typography,
+    Typography,
 } from '@material-ui/core';
 // import {
 //     Add as AddIcon,
@@ -67,16 +68,29 @@ export default class View extends React.Component {
             formTitle,
         } = this.state;
         const {
+            orders,
             versions,
             models,
             colors,
             options,
         } = this.props;
         return (
-            <div>
-                <Hidden xsDown>
-                    Hello Orders
-                </Hidden>
+            <div style={{paddingLeft: 20}}>
+                <Typography variant="h5" gutterBottom component="h4">
+                    Commandes
+                </Typography>
+
+                <Grid container item>
+                    <Grid container spacing={4} justify="space-around">
+                        {Object.entries(orders).map(([k, v]) => (
+                            <Grid key={k} item xs={6} md={4} lg={3}>
+                                {v.date}
+                                {/*<Commande commande={x} handleChangeCommandeState={this.handleChangeStateCommande} />*/}
+                            </Grid>
+                        ))}
+                    </Grid>
+                </Grid>
+
                 {/*message SnackBar*/}
                 {
                     openSnackBar && <SnackBar
