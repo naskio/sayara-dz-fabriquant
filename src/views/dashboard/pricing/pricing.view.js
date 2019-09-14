@@ -224,6 +224,7 @@ export default class View extends React.Component {
                                     object_id: '',
                                     date_debut: '',
                                     date_fin: '',
+                                    modele: '',
                                 },
                                 formTitle: 'Ajouter une Tarification',
                             },
@@ -270,6 +271,7 @@ export default class View extends React.Component {
             versions,
             colors,
             pricing,
+            models,
         } = this.props;
         return (
             <div>
@@ -327,6 +329,7 @@ export default class View extends React.Component {
                                                             object_id: v[types[v.type].field],
                                                             date_debut: v.date_debut,
                                                             date_fin: v.date_fin,
+                                                            modele: this.props[types[v.type].collection][v[types[v.type].field]].modele,
                                                         },
                                                         formTitle: `Modifier les tarifs de ${this.props[types[v.type].collection].nom}`,
                                                     },
@@ -372,6 +375,7 @@ export default class View extends React.Component {
                                 versions={versions}
                                 colors={colors}
                                 options={options}
+                                models={models}
                             />
                         )
                     }

@@ -19,7 +19,10 @@ import Logo from '../../../components/Logo';
 import ImageDialog from "../../../components/dashboard/imageDialog";
 import {catcher} from "../../../utils/catcher";
 
-
+// TODO
+// add multi images carousel
+// add options
+// add colors
 export default class View extends React.Component {
     constructor(props) {
         super(props);

@@ -16,7 +16,6 @@ import types from '../../../assets/data/pricingTypes';
 
 // const yesterday = new Date();
 // yesterday.setHours(yesterday.getHours() - 24);
-// TODO: add modele and filter according to the model
 const validationSchema = Yup.object({
     prix: Yup.number("Entrer le montant (DZD)").required("Ce champs est obligatoire"),
     type: Yup.number("Choisir le type de tarification").required("Ce champs est obligatoire"),
@@ -27,11 +26,12 @@ const validationSchema = Yup.object({
     date_fin: Yup.date("Entrer la date du fin")
         .when('date_debut', (startDate, schema) => (startDate && schema.min(startDate, "veuillez entrez un intervalle valide")),
         ).required("Ce champs est obligatoire"),
+    modele: Yup.number("Choississez le modèle de la vidéo").required("Ce champs est obligatoire"),
 });
 
 class View extends React.Component {
     render() {
-        const {classes, onSubmit, initialValues, onCancel, title} = this.props;
+        const {classes, onSubmit, initialValues, onCancel, title, models} = this.props;
         return (
             <Formik
                 initialValues={initialValues}
@@ -45,6 +45,7 @@ class View extends React.Component {
                             object_id,
                             date_debut,
                             date_fin,
+                            modele,
                         },
                         errors,
                         touched,
@@ -85,7 +86,29 @@ class View extends React.Component {
                                         onBlur={handleBlur}
                                         value={prix}
                                     />
-
+                                    <TextField
+                                        select
+                                        margin="normal"
+                                        name="modele"
+                                        className={classes.textFieldFull}
+                                        placeholder="Le modèle"
+                                        label="Le modèle"
+                                        helperText={touched.modele ? errors.modele : ""}
+                                        error={touched.modele && Boolean(errors.modele)}
+                                        onChange={(e) => {
+                                            handleChange(e);
+                                            setFieldTouched('object_id', false, false);
+                                            setFieldValue('object_id', '', false);
+                                        }}
+                                        onBlur={handleBlur}
+                                        value={modele}
+                                    >
+                                        {
+                                            models && Object.entries(models).map(([k, v]) => (
+                                                <MenuItem key={k} value={v.id}>{v.nom}</MenuItem>
+                                            ))
+                                        }
+                                    </TextField>
                                     <TextField
                                         select
                                         margin="normal"
@@ -110,7 +133,7 @@ class View extends React.Component {
                                         }
                                     </TextField>
                                     {
-                                        (type === 0 || !!type) && (
+                                        (type === 0 || !!type) && !!modele && (
                                             <TextField
                                                 select
                                                 margin="normal"
@@ -125,7 +148,7 @@ class View extends React.Component {
                                                 value={this.props[types[type].collection] && object_id ? object_id : ''}
                                             >
                                                 {
-                                                    !!this.props[types[type].collection] && Object.entries(this.props[types[type].collection]).map(([k, v]) => (
+                                                    !!this.props[types[type].collection] && Object.entries(this.props[types[type].collection]).filter(([k, v]) => v.modele === modele).map(([k, v]) => (
                                                         <MenuItem key={k} value={v.id}>{v.nom}</MenuItem>
                                                     ))
                                                 }

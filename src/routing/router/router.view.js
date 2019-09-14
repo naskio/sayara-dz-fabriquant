@@ -13,6 +13,7 @@ import routes from "../routes";
 import {Helmet} from 'react-helmet-async';
 
 
+// TODO: add set password page
 export default class extends React.PureComponent {
 
     render() {

@@ -48,10 +48,7 @@ export const uploadPricing = (data) => dispatch => {
             'Content-Type': 'multipart/form-data',
         }
     })
-        .then((res) => {
-            console.log('UPLOAD', res.data);
-            // TODO: check results and add it
-            // dispatch(uploadDataAction('pricing', res.data));
-            return res.data;
+        .then(() => {
+            dispatch(fetchPricing());
         });
 };
