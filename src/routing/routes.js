@@ -1,6 +1,15 @@
 import {
-    // TODO: change icons
-    DirectionsCar as CarIcon,
+    DirectionsCarOutlined as ModelsIcon,
+    LocalCarWashOutlined as VersionsIcon,
+    PaletteOutlined as ColorsIcon,
+    AttachMoneyOutlined as PricingIcon,
+    TrendingUpOutlined as StockIcon,
+    TuneOutlined as OptionsIcon,
+    VideoLibraryOutlined as VideosIcon,
+    PhotoLibraryOutlined as ImagesIcon,
+    MonetizationOnOutlined as SimulatorIcon,
+    HomeOutlined as HomeIcon,
+    ShoppingCartOutlined as OrdersIcon,
 } from "@material-ui/icons";
 import Models from '../views/dashboard/models';
 import Versions from '../views/dashboard/versions';
@@ -17,82 +26,57 @@ import Home from '../views/dashboard/home';
 export default {
     home: {
         label: 'Accueil',
-        icon: CarIcon,
+        icon: HomeIcon,
         component: Home,
     },
     orders: {
         label: 'Commandes',
-        icon: CarIcon,
+        icon: OrdersIcon,
         component: Orders,
     },
     stock: {
         label: 'Stock',
-        icon: CarIcon,
+        icon: StockIcon,
         component: Stock,
     },
     pricing: {
         label: 'Tarification',
-        icon: CarIcon,
+        icon: PricingIcon,
         component: Pricing,
     },
     models: {
         label: 'Modèles',
-        icon: CarIcon,
+        icon: ModelsIcon,
         component: Models,
     },
     versions: {
         label: 'Versions',
-        icon: CarIcon,
+        icon: VersionsIcon,
         component: Versions,
     },
     images: {
         label: 'Images',
-        icon: CarIcon,
+        icon: ImagesIcon,
         component: Images,
     },
     videos: {
         label: 'Videos',
-        icon: CarIcon,
+        icon: VideosIcon,
         component: Videos,
     },
     colors: {
         label: 'Couleurs',
-        icon: CarIcon,
+        icon: ColorsIcon,
         component: Colors,
     },
     options: {
         label: 'Options',
-        icon: CarIcon,
+        icon: OptionsIcon,
         component: Options,
     },
     simulation: {
         label: 'Simulation du prix',
-        icon: CarIcon,
+        icon: SimulatorIcon,
         component: Simulator,
     },
 };
-
-/*
-Features:
-- Se connecter
-- Se déconnecter
-- modèles (CRUD)
-- Versions (CRUD)
-- Couleurs (CRUD)
-- Options (CRUD)
-- Afficher les véhicules disponibles (STOCK)
-- Uploader fichier stock
-- Simuler Prix (composer => simuler)
-- Uploader fichier des tarifs
-- Commandes (Lister, Accepter ou rejeter => maj stock)
-
-Sections:
-- Accueil
-- Modèles
-- Versions
-- Stock
-- Couleurs
-- Options
-- Simuler le prix
-- Commandes
-* */

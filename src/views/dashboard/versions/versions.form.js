@@ -20,6 +20,7 @@ import freinTypes from '../../../assets/data/freinTypes';
 import energieTypes from '../../../assets/data/energieTypes';
 import boiteTypes from '../../../assets/data/boiteTypes';
 
+/*eslint-disable no-template-curly-in-string */
 const validationSchema = Yup.object({
     nom: Yup.string("Entrez le nom de la version").required("Ce champs est obligatoire"),
     code_version: Yup.string("Entrez le code de la version").required("Ce champs est obligatoire"),
@@ -70,6 +71,7 @@ const validationSchema = Yup.object({
         .max(24, 'doit être inférieur à ${max}')
         .required("Ce champs est obligatoire"),
 });
+/*eslint-enable no-template-curly-in-string */
 
 class View extends React.Component {
     render() {

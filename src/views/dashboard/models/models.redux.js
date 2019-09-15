@@ -9,6 +9,9 @@ import {
 
 const mapStateToProps = state => ({
     models: state.data.models,
+    versions: state.data.versions,
+    colors: state.data.colors,
+    images: state.data.images,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -10,6 +10,8 @@ import {
     Add as AddIcon,
     Edit as EditIcon,
     Delete as DeleteIcon,
+    List as ListIcon,
+    PaletteOutlined as ColorsIcon,
 } from '@material-ui/icons';
 import MUIDataTable from 'mui-datatables';
 import Form from './models.form';
@@ -18,11 +20,10 @@ import ConfirmationDialog from "../../../components/dashboard/confirmationDialog
 import Logo from '../../../components/Logo';
 import ImageDialog from "../../../components/dashboard/imageDialog";
 import {catcher} from "../../../utils/catcher";
+import OptionsList from "../../../components/list";
 
 // TODO
 // add multi images carousel
-// add options
-// add colors
 export default class View extends React.Component {
     constructor(props) {
         super(props);
@@ -170,6 +171,26 @@ export default class View extends React.Component {
             },
         },
         {
+            name: 'versions',
+            label: 'Versions',
+            options: {
+                filter: false,
+                sort: false,
+                print: false,
+                download: false,
+            },
+        },
+        {
+            name: 'colors',
+            label: 'Couleurs',
+            options: {
+                filter: false,
+                sort: false,
+                print: false,
+                download: false,
+            },
+        },
+        {
             name: 'actions',
             label: 'Actions',
             options: {
@@ -263,6 +284,9 @@ export default class View extends React.Component {
         const {
             // classes,
             models,
+            colors,
+            versions,
+            // images,
         } = this.props;
         return (
             <div>
@@ -284,6 +308,12 @@ export default class View extends React.Component {
                                             this.setState({imageDialogUrl: v.image}, this.toggleImageDialog)
                                         }
                                     }/> : <></>,
+                                    <OptionsList icon={ListIcon} id={v.id}
+                                                 list={Object.entries(versions).filter(([k1, v1]) => v1.modele === v.id).map(([k1, v1]) => v1)}
+                                                 field='nom'/>,
+                                    <OptionsList icon={ColorsIcon} id={v.id}
+                                                 list={Object.entries(colors).filter(([k1, v1]) => v1.modele === v.id).map(([k1, v1]) => v1)}
+                                                 field='nom'/>,
                                     <>
                                         <IconButton color="inherit" onClick={
                                             () => {

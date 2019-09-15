@@ -25,12 +25,12 @@ export default class View extends React.PureComponent {
 
     disable = specs => {
         let vv = true;
-        Object.entries(specs).map(([k, v]) => {
-            Object.entries(v).map(([k1, v1]) => {
+        Object.entries(specs).forEach(([k, v]) => {
+            Object.entries(v).forEach(([k1, v1]) => {
                 if (!!v1) {
                     vv = false;
                 }
-            })
+            });
         });
         return vv;
     };

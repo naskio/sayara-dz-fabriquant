@@ -9,12 +9,11 @@ import SignUp from '../../views/signUp';
 import Login from '../../views/login';
 import Password from '../../views/password';
 import Dashboard from '../../views/dashboard';
-import {BASE_NAME} from "../../config/config";
+// import {BASE_NAME} from "../../config/config";
 import routes from "../routes";
 import {Helmet} from 'react-helmet-async';
 
 
-// TODO: add set password page
 export default class extends React.PureComponent {
 
     render() {

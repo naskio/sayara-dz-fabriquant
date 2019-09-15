@@ -238,8 +238,8 @@ class View extends React.PureComponent {
                     open={openDrawer}
                 >
                     <div className={classes.toolbarIcon}>
-                        {/*{user.marque ? user.marque.nom : ''}*/}
-                        {/*TODO: show logo company here*/}
+                        {user.marque.nom}
+                        <img src={user.marque.logo} alt='company icon'/>
                         <IconButton onClick={this.toggleDrawer}>
                             {
                                 openDrawer ? <ChevronLeftIcon/> : <ChevronRightIcon/>
