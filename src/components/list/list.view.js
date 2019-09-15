@@ -1,11 +1,13 @@
 import React from 'react';
 import {IconButton, Typography, MenuList, ListItem} from "@material-ui/core";
 import PopUpList from "../dashboard/popupList";
+import {simpleContrast} from "../../utils/colors";
 
 export default class View extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {openPopup: false};
+        console.log('LIST', props.list);
     }
 
     togglePopup = () => {
@@ -50,16 +52,29 @@ export default class View extends React.PureComponent {
                         list ?
                             <MenuList style={{
                                 color: 'black',
-                                // width: '10vw',
+                                minWidth: '10vw',
                                 maxHeight: '25vw', overflowY: 'scroll'
                             }}>
                                 {
                                     list.map(item => (
-                                        <ListItem key={item.id}>
-                                            <Typography variant="subtitle1" style={{textAlign: 'center'}}>
-                                                {item[field]}
-                                            </Typography>
-                                        </ListItem>
+                                        item.code_hexa ?
+                                            <ListItem key={item.id}
+                                                      style={{backgroundColor: item.code_hexa}}
+                                            >
+                                                <Typography variant="subtitle1"
+                                                            style={{
+                                                                textAlign: 'center',
+                                                                color: simpleContrast(item.code_hexa),
+                                                            }}
+                                                >
+                                                    {item[field]}
+                                                </Typography>
+                                            </ListItem>
+                                            : <ListItem key={item.id}>
+                                                <Typography variant="subtitle1" style={{textAlign: 'center'}}>
+                                                    {item[field]}
+                                                </Typography>
+                                            </ListItem>
                                     ))
                                 }
                             </MenuList>
