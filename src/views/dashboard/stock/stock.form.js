@@ -26,6 +26,7 @@ const validationSchema = Yup.object({
     nom_concessionnaire: Yup.string("Entrez le nom de concessionnaire").required("Ce champs est obligatoire"),
 });
 
+// TODO: add model in the form
 class View extends React.Component {
     render() {
         const {classes, onSubmit, initialValues, onCancel, title, versions, colors, options_all} = this.props;

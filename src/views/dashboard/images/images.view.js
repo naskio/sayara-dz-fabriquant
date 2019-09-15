@@ -16,7 +16,7 @@ import Form from './images.form';
 import SnackBar from '../../../components/dashboard/snackbar';
 import ConfirmationDialog from "../../../components/dashboard/confirmationDialog";
 import ImageDialog from "../../../components/dashboard/imageDialog";
-import Logo from '../../../components/Logo';
+import Logo from '../../../components/logo';
 import types from '../../../assets/data/imageTypes';
 import {catcher} from "../../../utils/catcher";
 

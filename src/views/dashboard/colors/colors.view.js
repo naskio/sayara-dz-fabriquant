@@ -14,7 +14,7 @@ import MUIDataTable from 'mui-datatables';
 import Form from './colors.form';
 import SnackBar from '../../../components/dashboard/snackbar';
 import ConfirmationDialog from "../../../components/dashboard/confirmationDialog";
-import Logo from '../../../components/Logo';
+import Logo from '../../../components/logo';
 import ImageDialog from "../../../components/dashboard/imageDialog";
 import ColorPreview from "../../../components/colorPreview";
 import {catcher} from "../../../utils/catcher";

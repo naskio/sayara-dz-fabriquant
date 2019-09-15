@@ -237,9 +237,14 @@ class View extends React.PureComponent {
                     }}
                     open={openDrawer}
                 >
-                    <div className={classes.toolbarIcon}>
-                        {user.marque.nom}
-                        <img src={user.marque.logo} alt='company icon'/>
+                    <div className='d-flex flex-row justify-content-end align-items-center mt-2 mr-2'>
+                        <img style={{
+                            height: 48,
+                            objectFit: 'contain',
+                        }} src={user.marque.logo} alt='company icon'/>
+                        <Typography color="inherit" variant="h6" className="ml-1 mr-2">
+                            {user.marque.nom}
+                        </Typography>
                         <IconButton onClick={this.toggleDrawer}>
                             {
                                 openDrawer ? <ChevronLeftIcon/> : <ChevronRightIcon/>

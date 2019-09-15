@@ -133,6 +133,14 @@ export default class View extends React.Component {
             },
         },
         {
+            name: 'modele',
+            label: 'Modèle Concerné',
+            options: {
+                filter: true,
+                sort: true,
+            },
+        },
+        {
             name: 'type',
             label: 'Type de tarification',
             options: {
@@ -312,6 +320,7 @@ export default class View extends React.Component {
                                 [
                                     v.id,
                                     v.prix,
+                                    models[this.props[types[v.type].collection][v[types[v.type].field]].modele].nom,
                                     types[v.type].label,
                                     this.props[types[v.type].collection] ?
                                         this.props[types[v.type].collection][v[types[v.type].field]].nom : '',

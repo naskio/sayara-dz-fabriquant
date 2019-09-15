@@ -150,14 +150,14 @@ export default class View extends React.Component {
                 sort: false,
             },
         },
-        // {
-        //     name: 'disponible',
-        //     label: 'Status',
-        //     options: {
-        //         filter: true,
-        //         sort: true,
-        //     },
-        // },
+        {
+            name: 'disponible',
+            label: 'Statut',
+            options: {
+                filter: true,
+                sort: true,
+            },
+        },
         {
             name: 'actions',
             label: 'Actions',
@@ -309,7 +309,7 @@ export default class View extends React.Component {
                                     colors && colors[v.couleur] ? colors[v.couleur].nom : '',
                                     <OptionsList icon={ListIcon} id={v.id} list={v.options.map(key => options[key])}
                                                  field='nom'/>,
-                                    // v.disponible,
+                                    v.disponible ? 'Disponible' : 'Réservée',
                                     <>
                                         <IconButton color="inherit" onClick={
                                             () => {
