@@ -30,5 +30,14 @@ export const logout = () => dispatch => {
 export const fetchProfile = () => dispatch => {
     return axios.get(API('profile')).then(res => {
         dispatch(setUserAction(res.data));
+        return res.data;
+    });
+};
+
+export const setPassword = ({token, password}) => dispatch => {
+    return axios.post(API('set_password'), {token, password}).then(() => {
+        setAuthorizationToken(token);
+        setSessionToken(token);
+        dispatch(setUserAction({token}));
     });
 };
