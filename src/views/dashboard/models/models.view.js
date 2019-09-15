@@ -22,8 +22,6 @@ import ImageDialog from "../../../components/dashboard/imageDialog";
 import {catcher} from "../../../utils/catcher";
 import OptionsList from "../../../components/list";
 
-// TODO
-// add multi images carousel
 export default class View extends React.Component {
     constructor(props) {
         super(props);
@@ -40,7 +38,8 @@ export default class View extends React.Component {
             confirmationTitle: '',
             confirmationAction: null,
             openImageDialog: false,
-            imageDialogUrl: '',
+            imageDialogUrls: [],
+            imageDialogId: '',
         };
     }
 
@@ -279,14 +278,15 @@ export default class View extends React.Component {
             confirmationTitle,
             confirmationAction,
             openImageDialog,
-            imageDialogUrl,
+            imageDialogUrls,
+            imageDialogId,
         } = this.state;
         const {
             // classes,
             models,
             colors,
             versions,
-            // images,
+            images,
         } = this.props;
         return (
             <div>
@@ -305,7 +305,13 @@ export default class View extends React.Component {
                                     v.disponible,
                                     v.image ? <Logo alt="logo" src={v.image} onClick={
                                         () => {
-                                            this.setState({imageDialogUrl: v.image}, this.toggleImageDialog)
+                                            this.setState({
+                                                imageDialogUrls: Object.entries(images).filter(([k1, v1]) => v1.modele === v.id).map(([k1, v1]) => ({
+                                                    url: v1.url,
+                                                    title: v1.titre,
+                                                })),
+                                                imageDialogId: v.id,
+                                            }, this.toggleImageDialog)
                                         }
                                     }/> : <></>,
                                     <OptionsList icon={ListIcon} id={v.id}
@@ -399,8 +405,9 @@ export default class View extends React.Component {
                 {
                     openImageDialog && <ImageDialog
                         open={openImageDialog}
-                        image={imageDialogUrl}
+                        images={imageDialogUrls}
                         onClose={this.toggleImageDialog}
+                        id={imageDialogId}
                     />
                 }
             </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import {withStyles} from '@material-ui/core/styles';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import {
     Dialog,
     DialogContent,
@@ -8,6 +9,8 @@ import {
 import {
     Close as CloseIcon,
 } from '@material-ui/icons';
+
+var Carousel = require('react-responsive-carousel').Carousel;
 
 const styles = theme => ({
     dialog: {
@@ -25,7 +28,7 @@ const styles = theme => ({
 
 class View extends React.PureComponent {
     render() {
-        const {classes, open, onClose, image} = this.props;
+        const {classes, open, onClose, image, images, id} = this.props;
         return (
             <Dialog onClose={onClose} open={open}>
                 <DialogContent className={classes.dialog}>
@@ -36,7 +39,7 @@ class View extends React.PureComponent {
                         <CloseIcon/>
                     </IconButton>
                     {
-                        image &&
+                        !images && image &&
                         <img style={{
                             width: '100%',
                             objectFit: 'cover',
@@ -44,6 +47,27 @@ class View extends React.PureComponent {
                         }}
                              src={image}
                              alt='Dialog Preview'/>
+                    }
+                    {
+                        !!images && (
+                            <div style={{marginTop: 44,}}>
+                                <Carousel showArrows id={`carousel-images-${id}`}>
+                                    {
+                                        images.map((item, ind) => (
+                                            <div key={ind}>
+                                                <img style={{
+                                                    width: '100%',
+                                                    objectFit: 'cover',
+                                                }}
+                                                     src={item.url}
+                                                     alt='Dialog Preview'/>
+                                                <p className="legend">{item.title}</p>
+                                            </div>
+                                        ))
+                                    }
+                                </Carousel>
+                            </div>
+                        )
                     }
                 </DialogContent>
             </Dialog>
