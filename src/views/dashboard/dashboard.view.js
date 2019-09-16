@@ -134,20 +134,20 @@ class View extends React.PureComponent {
             } = this.props;
 
             this.setState({refreshing: true});
-            Promise.all(
-                [
-                    fetchProfile(),
-                    fetchModels(),
-                    fetchVersions(),
-                    fetchCategories(),
-                    fetchOptions(),
-                    fetchColors(),
-                    fetchImages(),
-                    fetchVideos(),
-                    fetchPricing(),
-                    fetchVehicles(),
-                ]
-            ).then(() => this.setState({refreshing: false}));
+            fetchProfile().then(
+                Promise.all(
+                    [
+                        fetchModels(),
+                        fetchVersions(),
+                        fetchCategories(),
+                        fetchOptions(),
+                        fetchColors(),
+                        fetchImages(),
+                        fetchVideos(),
+                        fetchPricing(),
+                        fetchVehicles(),
+                    ]
+                ).then(() => this.setState({refreshing: false})));
         }
     };
 
