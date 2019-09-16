@@ -316,53 +316,54 @@ export default class View extends React.Component {
                     < MUIDataTable
                         title="Gestion des tarifs"
                         data={
-                            Object.entries(pricing).map(([k, v]) =>
-                                [
-                                    v.id,
-                                    v.prix,
-                                    models[this.props[types[v.type].collection][v[types[v.type].field]].modele].nom,
-                                    types[v.type].label,
-                                    this.props[types[v.type].collection] ?
-                                        this.props[types[v.type].collection][v[types[v.type].field]].nom : '',
-                                    v.date_debut,
-                                    v.date_fin,
-                                    <>
-                                        <IconButton color="inherit" onClick={
-                                            () => {
-                                                this.setState({
-                                                        formOnSubmit: this.update,
-                                                        formInitialValues: {
-                                                            id: v.id,
-                                                            prix: v.prix,
-                                                            type: v.type,
-                                                            object_id: v[types[v.type].field],
-                                                            date_debut: v.date_debut,
-                                                            date_fin: v.date_fin,
-                                                            modele: this.props[types[v.type].collection][v[types[v.type].field]].modele,
+                            (!JSON.stringify(models) === '{}') ? Object.entries(pricing).map(([k, v]) =>
+                                    [
+                                        v.id,
+                                        v.prix,
+                                        models[this.props[types[v.type].collection][v[types[v.type].field]].modele].nom,
+                                        types[v.type].label,
+                                        this.props[types[v.type].collection] ?
+                                            this.props[types[v.type].collection][v[types[v.type].field]].nom : '',
+                                        v.date_debut,
+                                        v.date_fin,
+                                        <>
+                                            <IconButton color="inherit" onClick={
+                                                () => {
+                                                    this.setState({
+                                                            formOnSubmit: this.update,
+                                                            formInitialValues: {
+                                                                id: v.id,
+                                                                prix: v.prix,
+                                                                type: v.type,
+                                                                object_id: v[types[v.type].field],
+                                                                date_debut: v.date_debut,
+                                                                date_fin: v.date_fin,
+                                                                modele: this.props[types[v.type].collection][v[types[v.type].field]].modele,
+                                                            },
+                                                            formTitle: `Modifier les tarifs de ${this.props[types[v.type].collection].nom}`,
                                                         },
-                                                        formTitle: `Modifier les tarifs de ${this.props[types[v.type].collection].nom}`,
-                                                    },
-                                                    this.toggleDialog);
-                                            }
-                                        }>
-                                            <EditIcon/>
-                                        </IconButton>
-                                        <IconButton color="inherit" onClick={
-                                            () => {
-                                                this.setState({
-                                                        confirmationAction: () => this.delete(v),
-                                                        confirmationTitle: `Etes-vous sûr de vouloir supprimer 
+                                                        this.toggleDialog);
+                                                }
+                                            }>
+                                                <EditIcon/>
+                                            </IconButton>
+                                            <IconButton color="inherit" onClick={
+                                                () => {
+                                                    this.setState({
+                                                            confirmationAction: () => this.delete(v),
+                                                            confirmationTitle: `Etes-vous sûr de vouloir supprimer 
                                                             la tarification ${this.props[types[v.type].collection].nom} ? 
                                                             Cette action est irréversible`,
-                                                    },
-                                                    this.toggleConfirmationDialog);
-                                            }
-                                        }>
-                                            <DeleteIcon/>
-                                        </IconButton>
-                                    </>
-                                ]
-                            ).reverse()
+                                                        },
+                                                        this.toggleConfirmationDialog);
+                                                }
+                                            }>
+                                                <DeleteIcon/>
+                                            </IconButton>
+                                        </>
+                                    ]
+                                ).reverse() :
+                                []
                         }
                         columns={this.columns}
                         options={this.options}

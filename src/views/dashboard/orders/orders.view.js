@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    Grid,
+    Grid, Typography,
 } from '@material-ui/core';
 import SnackBar from '../../../components/dashboard/snackbar';
 import Order from '../../../components/dashboard/order';
@@ -70,25 +70,29 @@ export default class View extends React.Component {
         } = this.props;
         return (
             <div style={{paddingLeft: 20, marginTop: 24,}}>
-                <Grid container item>
-                    <Grid container spacing={4} justify="space-around">
-                        {Object.entries(orders).map(([k, v]) => (
-                            <Grid key={k} item xs={10} md={6} lg={4}>
-                                <Order
-                                    order={v}
-                                    model={models[versions[v.version].modele]}
-                                    version={versions[v.version]}
-                                    color={colors[v.couleur]}
-                                    options={v.options.map(id => options[id])}
-                                    vehicles={v.vehicules.map(id => vehicles[id])}
-                                    vehicle={v.vehicule_choisi ? vehicles[v.vehicule_choisi] : undefined}
-                                    bookVehicle={this.bookVehicle}
-                                    cancelOrder={this.cancelOrder}
-                                />
+                {
+                    !(JSON.stringify(orders) === '{}') ?
+                        <Grid container item>
+                            <Grid container spacing={4} justify="space-around">
+                                {Object.entries(orders).map(([k, v]) => (
+                                    <Grid key={k} item xs={10} md={6} lg={4}>
+                                        <Order
+                                            order={v}
+                                            model={models[versions[v.version].modele]}
+                                            version={versions[v.version]}
+                                            color={colors[v.couleur]}
+                                            options={v.options.map(id => options[id])}
+                                            vehicles={v.vehicules.map(id => vehicles[id])}
+                                            vehicle={v.vehicule_choisi ? vehicles[v.vehicule_choisi] : undefined}
+                                            bookVehicle={this.bookVehicle}
+                                            cancelOrder={this.cancelOrder}
+                                        />
+                                    </Grid>
+                                ))}
                             </Grid>
-                        ))}
-                    </Grid>
-                </Grid>
+                        </Grid> :
+                        <Typography variant='h6' className='p-5 ml-5 mt-5'>Aucune commande !</Typography>
+                }
                 {/*message SnackBar*/}
                 {
                     openSnackBar && <SnackBar
