@@ -134,20 +134,19 @@ class View extends React.PureComponent {
             } = this.props;
 
             this.setState({refreshing: true});
-            fetchProfile().then(
-                Promise.all(
-                    [
-                        fetchModels(),
-                        fetchVersions(),
-                        fetchCategories(),
-                        fetchOptions(),
-                        fetchColors(),
-                        fetchImages(),
-                        fetchVideos(),
-                        fetchPricing(),
-                        fetchVehicles(),
-                    ]
-                ).then(() => this.setState({refreshing: false})));
+            Promise.all(
+                [
+                    fetchProfile(),
+                    fetchModels(),
+                    fetchVersions(),
+                    fetchCategories(),
+                    fetchOptions(),
+                    fetchColors(),
+                    fetchImages(),
+                    fetchVideos(),
+                    fetchPricing(),
+                    fetchVehicles(),
+                ]).then(() => this.setState({refreshing: false}));
         }
     };
 
@@ -237,13 +236,23 @@ class View extends React.PureComponent {
                     open={openDrawer}
                 >
                     <div className='d-flex flex-row justify-content-end align-items-center mt-2 mr-2'>
-                        <img style={{
-                            height: 48,
-                            objectFit: 'contain',
-                        }} src={user.marque.logo} alt='company icon'/>
-                        <Typography color="inherit" variant="h6" className="ml-1 mr-2">
-                            {user.marque.nom}
-                        </Typography>
+                        {
+                            !!user && !!user.marque && (
+                                <>
+                                    {
+                                        !!user.marque.logo && (
+                                            <img style={{
+                                                height: 48,
+                                                objectFit: 'contain',
+                                            }} src={user.marque.logo} alt='company icon'/>
+                                        )
+                                    }
+                                    <Typography color="inherit" variant="h6" className="ml-1 mr-2">
+                                        {user.marque.nom}
+                                    </Typography>
+                                </>
+                            )
+                        }
                         <IconButton onClick={this.toggleDrawer}>
                             {
                                 openDrawer ? <ChevronLeftIcon/> : <ChevronRightIcon/>
