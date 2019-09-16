@@ -1,7 +1,7 @@
 import React from "react";
 import {
-    // BrowserRouter as Router,
-    HashRouter as Router,
+    BrowserRouter as Router,
+    // HashRouter as Router,
     Route, Switch
 } from "react-router-dom";
 import Home from '../../views/home';
@@ -9,7 +9,7 @@ import SignUp from '../../views/signUp';
 import Login from '../../views/login';
 import Password from '../../views/password';
 import Dashboard from '../../views/dashboard';
-// import {BASE_NAME} from "../../config/config";
+import {BASE_NAME} from "../../config/config";
 import routes from "../routes";
 import {Helmet} from 'react-helmet-async';
 
@@ -23,8 +23,8 @@ export default class extends React.PureComponent {
                 <Helmet>
                     <title>{title}</title>
                 </Helmet>
-                {/*<Router basename={BASE_NAME}>*/}
-                <Router basename='/'>
+                <Router basename={BASE_NAME}>
+                {/*<Router basename='/'>*/}
                     {
                         !token ? (<Switch>
                             {/*<Route exact path="/" component={Home}/>*/}
