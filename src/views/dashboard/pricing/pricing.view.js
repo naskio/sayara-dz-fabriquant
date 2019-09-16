@@ -316,7 +316,7 @@ export default class View extends React.Component {
                     < MUIDataTable
                         title="Gestion des tarifs"
                         data={
-                            (!JSON.stringify(models) === '{}') ? Object.entries(pricing).map(([k, v]) =>
+                            (JSON.stringify(models) !== '{}') ? Object.entries(pricing).map(([k, v]) =>
                                     [
                                         v.id,
                                         v.prix,
