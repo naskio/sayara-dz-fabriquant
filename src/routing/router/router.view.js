@@ -1,8 +1,9 @@
 import React from "react";
 import {
-    BrowserRouter as Router,
-    // HashRouter as Router,
-    Route, Switch
+    // BrowserRouter as Router,
+    HashRouter as Router,
+    Route,
+    Switch,
 } from "react-router-dom";
 import Home from '../../views/home';
 import SignUp from '../../views/signUp';
@@ -23,9 +24,9 @@ export default class extends React.PureComponent {
                 <Helmet>
                     <title>{title}</title>
                 </Helmet>
+                {/*<Router>*/}
                 {/*<Router basename={BASE_NAME}>*/}
-                <Router>
-                {/*<Router basename='/'>*/}
+                <Router basename='/'>
                     {
                         !token ? (<Switch>
                             {/*<Route exact path="/" component={Home}/>*/}
