@@ -36,9 +36,9 @@ export default class View extends React.Component {
         });
     };
 
-    bookVehicle = (data) => {
+    bookVehicle = (order, vehicle) => {
         const {bookVehicle} = this.props;
-        bookVehicle(data)
+        bookVehicle(order, vehicle)
             .then(res => {
                 console.log('bookVehicle', res);
             })
@@ -82,7 +82,7 @@ export default class View extends React.Component {
                                             version={versions[v.version]}
                                             color={colors[v.couleur]}
                                             options={v.options.map(id => options[id])}
-                                            vehicles={v.vehicules.map(id => vehicles[id])}
+                                            vehicles={v.vehicules ? v.vehicules.map(v => vehicles[v.id]) : []}
                                             vehicle={v.vehicule_choisi ? vehicles[v.vehicule_choisi] : undefined}
                                             bookVehicle={this.bookVehicle}
                                             cancelOrder={this.cancelOrder}

@@ -5,6 +5,8 @@ import {
 } from "../actions/data";
 
 export const bookVehicle = (commande, vehicule) => dispatch => {
+    console.log('commande', commande);
+    console.log('vehicule', vehicule);
     return axios.post(API('reserver_vehicule'), {
         commande: commande.id,
         vehicule: vehicule.id,
@@ -12,7 +14,7 @@ export const bookVehicle = (commande, vehicule) => dispatch => {
         .then(() => {
             dispatch(updateDataAction('orders', {
                 id: commande.id,
-                vehicule_choisi: vehicule.id,
+                vehicule_choisi: vehicule,
                 etat: 1,
             }));
             dispatch(updateDataAction('vehicles', {

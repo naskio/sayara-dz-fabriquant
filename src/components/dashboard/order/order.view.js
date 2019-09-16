@@ -152,7 +152,7 @@ class View extends React.PureComponent {
                                     vehicule: Yup.number("Choississez le véhicule").required("Ce champs est obligatoire"),
                                     commande: Yup.number("Choisir la commande").required("Ce champs est obligatoire"),
                                 })}
-                                onSubmit={bookVehicle}
+                                onSubmit={({vehicule}) => bookVehicle(order, {id: vehicule})}
                                 render={props => {
                                     const {
                                         values: {
@@ -184,9 +184,9 @@ class View extends React.PureComponent {
                                                             value={vehicule}
                                                         >
                                                             {
-                                                                Object.entries(vehicles).map(([k, v]) => (
-                                                                    <MenuItem key={k}
-                                                                              value={v.id}>{`${v.nom_concessionnaire} "${v.numero_chassis}"`}
+                                                                vehicles.map(v => (
+                                                                    <MenuItem key={v.id} value={v.id}>
+                                                                        {`${v.nom_concessionnaire} "${v.numero_chassis}"`}
                                                                     </MenuItem>
                                                                 ))
                                                             }

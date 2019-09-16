@@ -25,7 +25,7 @@ const mapDispatchToProps = dispatch => ({
     // deleteOrder: (data) => dispatch(deleteOrder(data)),
     // fetchOptions: () => dispatch(fetchOptions()),
     // updateOrder: (data) => dispatch(updateOrder(data)),
-    bookVehicle: (data) => dispatch(bookVehicle(data)),
+    bookVehicle: (order,vehicle) => dispatch(bookVehicle(order,vehicle)),
     cancelOrder: (data) => dispatch(cancelOrder(data)),
 });
 
