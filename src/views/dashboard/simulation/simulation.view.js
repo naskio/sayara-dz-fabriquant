@@ -1,23 +1,15 @@
 import React from 'react';
 import {
     Button,
-    Grid,
-    // Tooltip,
+    // Grid,
     // IconButton,
     Hidden,
-    // Dialog,
     Paper,
-    Stepper,
-    Step,
-    StepLabel, Typography,
-    // Typography,
+    // Stepper,
+    // Step,
+    // StepLabel,
+    Typography,
 } from '@material-ui/core';
-// import {
-//     Add as AddIcon,
-//     Edit as EditIcon,
-//     Delete as DeleteIcon,
-//     CloudUploadSharp as CloudIcon,
-// } from '@material-ui/icons';
 import Form from './simulation.form';
 import SnackBar from '../../../components/dashboard/snackbar';
 import {catcher} from "../../../utils/catcher";
@@ -25,7 +17,6 @@ import {labelTransformer} from "../../../assets/data/specs";
 import {simpleContrast} from "../../../utils/colors";
 
 
-// TODO: build price estimator
 export default class View extends React.Component {
     constructor(props) {
         super(props);

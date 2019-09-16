@@ -1,9 +1,8 @@
 import axios from "axios";
 import {API} from "../../config/config";
 import {
-    createDataAction, updateDataAction,
+    updateDataAction,
 } from "../actions/data";
-import {fetchOrders} from "./orders";
 
 export const bookVehicle = (commande, vehicule) => dispatch => {
     return axios.post(API('reserver_vehicule'), {

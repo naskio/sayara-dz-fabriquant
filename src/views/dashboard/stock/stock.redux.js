@@ -13,6 +13,7 @@ const mapStateToProps = state => ({
     versions: state.data.versions,
     colors: state.data.colors,
     options: state.data.options,
+    models: state.data.models,
 });
 
 const mapDispatchToProps = dispatch => ({

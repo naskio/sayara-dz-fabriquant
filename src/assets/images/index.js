@@ -11,3 +11,4 @@ export const BACKGROUND5 = require('./backgrounds/bg5.jpg');
 export const APP_PUB = require('./home/mobile_app.png');
 export const APP_STORE = require('./home/app-store.svg');
 export const PLAY_STORE = require('./home/google-play.svg');
+export const CROWN = require('./dashboard/crown.png');

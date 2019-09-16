@@ -1,23 +1,11 @@
 import React from 'react';
 import {
-    // Tooltip,
-    // IconButton,
-    Hidden,
     Grid,
-    // Dialog,
-    // Paper,
-    Typography,
 } from '@material-ui/core';
-// import {
-//     Add as AddIcon,
-//     Edit as EditIcon,
-//     Delete as DeleteIcon,
-//     CloudUploadSharp as CloudIcon,
-// } from '@material-ui/icons';
 import SnackBar from '../../../components/dashboard/snackbar';
+import Order from '../../../components/dashboard/order';
 import {catcher} from "../../../utils/catcher";
 
-// TODO: display orders, reserve API too,add notifications
 export default class View extends React.Component {
     constructor(props) {
         super(props);
@@ -25,8 +13,6 @@ export default class View extends React.Component {
             openSnackBar: false,
             messageSnackBar: '',
             variantSnackBar: 'info',
-            formInitialValues: {},
-            formTitle: '',
         };
     }
 
@@ -50,22 +36,29 @@ export default class View extends React.Component {
         });
     };
 
-    // simulate = (data) => {
-    //     const {simulate} = this.props;
-    //     simulate(data)
-    //         .then(res => {
-    //             console.log('res', res);
-    //         })
-    //         .catch(catcher(this.showSnackBar));
-    // };
+    bookVehicle = (data) => {
+        const {bookVehicle} = this.props;
+        bookVehicle(data)
+            .then(res => {
+                console.log('bookVehicle', res);
+            })
+            .catch(catcher(this.showSnackBar));
+    };
+
+    cancelOrder = (data) => {
+        const {cancelOrder} = this.props;
+        cancelOrder(data)
+            .then(res => {
+                console.log('CANCEL_ORDER', res);
+            })
+            .catch(catcher(this.showSnackBar));
+    };
 
     render() {
         const {
             openSnackBar,
             messageSnackBar,
             variantSnackBar,
-            formInitialValues,
-            formTitle,
         } = this.state;
         const {
             orders,
@@ -73,24 +66,29 @@ export default class View extends React.Component {
             models,
             colors,
             options,
+            vehicles,
         } = this.props;
         return (
-            <div style={{paddingLeft: 20}}>
-                <Typography variant="h5" gutterBottom component="h4">
-                    Commandes
-                </Typography>
-
+            <div style={{paddingLeft: 20, marginTop: 24,}}>
                 <Grid container item>
                     <Grid container spacing={4} justify="space-around">
                         {Object.entries(orders).map(([k, v]) => (
-                            <Grid key={k} item xs={6} md={4} lg={3}>
-                                {v.date}
-                                {/*<Commande commande={x} handleChangeCommandeState={this.handleChangeStateCommande} />*/}
+                            <Grid key={k} item xs={10} md={6} lg={4}>
+                                <Order
+                                    order={v}
+                                    model={models[versions[v.version].modele]}
+                                    version={versions[v.version]}
+                                    color={colors[v.couleur]}
+                                    options={v.options.map(id => options[id])}
+                                    vehicles={v.vehicules.map(id => vehicles[id])}
+                                    vehicle={v.vehicule_choisi ? vehicles[v.vehicule_choisi] : undefined}
+                                    bookVehicle={this.bookVehicle}
+                                    cancelOrder={this.cancelOrder}
+                                />
                             </Grid>
                         ))}
                     </Grid>
                 </Grid>
-
                 {/*message SnackBar*/}
                 {
                     openSnackBar && <SnackBar

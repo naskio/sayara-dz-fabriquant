@@ -127,6 +127,14 @@ export default class View extends React.Component {
             },
         },
         {
+            name: 'modele',
+            label: 'Modèle',
+            options: {
+                filter: true,
+                sort: true,
+            },
+        },
+        {
             name: 'version',
             label: 'Version',
             options: {
@@ -217,7 +225,8 @@ export default class View extends React.Component {
                                     version: '',
                                     couleur: '',
                                     options: [],
-                                    nom_concessionnaire: ''
+                                    nom_concessionnaire: '',
+                                    modele: '',
                                 },
                                 formTitle: 'Ajouter un Véhicule',
                             },
@@ -264,6 +273,7 @@ export default class View extends React.Component {
             colors,
             options,
             vehicles,
+            models,
         } = this.props;
         return (
             <div>
@@ -305,6 +315,7 @@ export default class View extends React.Component {
                                         {v.numero_chassis}
                                     </Typography>,
                                     v.nom_concessionnaire,
+                                    models[versions[v.version].modele].nom,
                                     versions && versions[v.version] ? versions[v.version].nom : '',
                                     colors && colors[v.couleur] ? colors[v.couleur].nom : '',
                                     <OptionsList icon={ListIcon} id={v.id} list={v.options.map(key => options[key])}
@@ -322,6 +333,7 @@ export default class View extends React.Component {
                                                             couleur: v.couleur,
                                                             options: v.options || [],
                                                             nom_concessionnaire: v.nom_concessionnaire,
+                                                            modele: versions[v.version].modele,
                                                         },
                                                         formTitle: `Modifier le Vehicule ${v.numero_chassis}`,
                                                     },
@@ -367,6 +379,7 @@ export default class View extends React.Component {
                                 colors={colors}
                                 options_all={options}
                                 versions={versions}
+                                models={models}
                             />
                         )
                     }

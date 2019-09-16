@@ -24,12 +24,12 @@ const validationSchema = Yup.object({
             .required("Ce champs est obligatoire")
     ),
     nom_concessionnaire: Yup.string("Entrez le nom de concessionnaire").required("Ce champs est obligatoire"),
+    modele: Yup.number("Choississez le modèle de la vidéo").required("Ce champs est obligatoire"),
 });
 
-// TODO: add model in the form
 class View extends React.Component {
     render() {
-        const {classes, onSubmit, initialValues, onCancel, title, versions, colors, options_all} = this.props;
+        const {classes, onSubmit, initialValues, onCancel, title, versions, colors, options_all, models} = this.props;
         return (
             <Formik
                 initialValues={initialValues}
@@ -43,6 +43,7 @@ class View extends React.Component {
                             couleur,
                             options,
                             nom_concessionnaire,
+                            modele,
                         },
                         errors,
                         touched,
@@ -92,18 +93,26 @@ class View extends React.Component {
                                     <TextField
                                         select
                                         margin="normal"
-                                        name="couleur"
+                                        name="modele"
                                         className={classes.textFieldFull}
-                                        placeholder="La couleur"
-                                        label="La couleur"
-                                        helperText={touched.couleur ? errors.couleur : ""}
-                                        error={touched.couleur && Boolean(errors.couleur)}
-                                        onChange={handleChange}
+                                        placeholder="Le modèle"
+                                        label="Le modèle"
+                                        helperText={touched.modele ? errors.modele : ""}
+                                        error={touched.modele && Boolean(errors.modele)}
+                                        onChange={(e) => {
+                                            handleChange(e);
+                                            setFieldTouched('version', false, false);
+                                            setFieldValue('version', '', false);
+                                            setFieldTouched('options', false, false);
+                                            setFieldValue('options', [], false);
+                                            setFieldTouched('couleur', false, false);
+                                            setFieldValue('couleur', '', false);
+                                        }}
                                         onBlur={handleBlur}
-                                        value={couleur}
+                                        value={modele}
                                     >
                                         {
-                                            colors && Object.entries(colors).map(([k, v]) => (
+                                            models && Object.entries(models).map(([k, v]) => (
                                                 <MenuItem key={k} value={v.id}>{v.nom}</MenuItem>
                                             ))
                                         }
@@ -117,51 +126,67 @@ class View extends React.Component {
                                         label="La version"
                                         helperText={touched.version ? errors.version : ""}
                                         error={touched.version && Boolean(errors.version)}
-                                        onChange={(e) => {
-                                            handleChange(e);
-                                            setFieldTouched('options', false, false);
-                                            setFieldValue('options', [], false);
-                                        }}
+                                        onChange={handleChange}
                                         onBlur={handleBlur}
                                         value={version}
+                                        disabled={!modele}
                                     >
                                         {
-                                            versions && Object.entries(versions).map(([k, v]) => (
-                                                <MenuItem key={k} value={v.id}>{v.nom}</MenuItem>
-                                            ))
+                                            versions && Object.entries(versions)
+                                                .filter(([k, v]) => v.modele === modele)
+                                                .map(([k, v]) => (
+                                                    <MenuItem key={k} value={v.id}>{v.nom}</MenuItem>
+                                                ))
                                         }
                                     </TextField>
-                                    {
-                                        version && (
-                                            <>
-                                                <InputLabel style={{marginTop: 16}} htmlFor="options">Les
-                                                    options</InputLabel>
-                                                <Select
-                                                    multiple
-                                                    displayEmpty
-                                                    onChange={handleChange}
-                                                    onBlur={handleBlur}
-                                                    value={options}
-                                                    style={{marginBottom: 16}}
-                                                    placeholder="Les options"
-                                                    label="Les options"
-                                                    name="options"
-                                                    id="options"
-                                                    className={classes.textFieldFull}
-                                                    // hintText={touched.options ? errors.options : ""}
-                                                    // error={touched.options && Boolean(errors.options)}
-                                                >
-                                                    {
-                                                        options_all && Object.entries(options_all)
-                                                            .filter(([k, v]) => v.modele === versions[version].modele)
-                                                            .map(([k, v]) => (
-                                                                <MenuItem key={k} value={v.id}>{v.nom}</MenuItem>
-                                                            ))
-                                                    }
-                                                </Select>
-                                            </>
-                                        )
-                                    }
+                                    <TextField
+                                        select
+                                        margin="normal"
+                                        name="couleur"
+                                        className={classes.textFieldFull}
+                                        placeholder="La couleur"
+                                        label="La couleur"
+                                        helperText={touched.couleur ? errors.couleur : ""}
+                                        error={touched.couleur && Boolean(errors.couleur)}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={couleur}
+                                        disabled={!modele}
+                                    >
+                                        {
+                                            colors && Object.entries(colors)
+                                                .filter(([k, v]) => v.modele === modele)
+                                                .map(([k, v]) => (
+                                                    <MenuItem key={k} value={v.id}>{v.nom}</MenuItem>
+                                                ))
+                                        }
+                                    </TextField>
+                                    <InputLabel style={{marginTop: 16}} htmlFor="options">Les
+                                        options</InputLabel>
+                                    <Select
+                                        multiple
+                                        displayEmpty
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={options}
+                                        style={{marginBottom: 16}}
+                                        placeholder="Les options"
+                                        label="Les options"
+                                        name="options"
+                                        id="options"
+                                        className={classes.textFieldFull}
+                                        disabled={!modele}
+                                        // hintText={touched.options ? errors.options : ""}
+                                        // error={touched.options && Boolean(errors.options)}
+                                    >
+                                        {
+                                            options_all && Object.entries(options_all)
+                                                .filter(([k, v]) => v.modele === modele)
+                                                .map(([k, v]) => (
+                                                    <MenuItem key={k} value={v.id}>{v.nom}</MenuItem>
+                                                ))
+                                        }
+                                    </Select>
                                 </form>
                             </DialogContent>
                             <DialogActions>

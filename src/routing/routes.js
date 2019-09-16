@@ -8,7 +8,7 @@ import {
     VideoLibraryOutlined as VideosIcon,
     PhotoLibraryOutlined as ImagesIcon,
     MonetizationOnOutlined as SimulatorIcon,
-    HomeOutlined as HomeIcon,
+    // HomeOutlined as HomeIcon,
     ShoppingCartOutlined as OrdersIcon,
 } from "@material-ui/icons";
 import Models from '../views/dashboard/models';
@@ -21,14 +21,14 @@ import Pricing from '../views/dashboard/pricing';
 import Stock from '../views/dashboard/stock';
 import Orders from '../views/dashboard/orders';
 import Simulator from '../views/dashboard/simulation';
-import Home from '../views/dashboard/home';
+// import Home from '../views/dashboard/home';
 
 export default {
-    home: {
-        label: 'Accueil',
-        icon: HomeIcon,
-        component: Home,
-    },
+    // home: {
+    //     label: 'Accueil',
+    //     icon: HomeIcon,
+    //     component: Home,
+    // },
     orders: {
         label: 'Commandes',
         icon: OrdersIcon,

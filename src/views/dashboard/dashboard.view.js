@@ -40,7 +40,6 @@ const Logo = styled.img`
   object-fit: contain;
 `;
 
-// TODO: add tests everywhere
 class View extends React.PureComponent {
     constructor(props) {
         super(props);
