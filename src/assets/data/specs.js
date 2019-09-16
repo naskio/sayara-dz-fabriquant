@@ -1,6 +1,6 @@
 export const labelTransformer = (t) => {
     switch (t) {
-        case 'energie:':
+        case 'energie':
             return 'Energie';
         case 'boite':
             return 'Boite';

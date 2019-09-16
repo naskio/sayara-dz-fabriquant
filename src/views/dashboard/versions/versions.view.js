@@ -331,7 +331,7 @@ export default class View extends React.Component {
                                                             options: v.option
                                                                 .filter(item => !!item.valeur)
                                                                 .map(item => item.id),
-                                                            energie: v.specifications.moteur['energie:'],
+                                                            energie: v.specifications.moteur.energie,
                                                             boite: v.specifications.moteur.boite,
                                                             reservoir: dataReverseTransformer('reservoir', v.specifications.vehicule.reservoir),
                                                             cylindre: dataReverseTransformer('cylindre', v.specifications.moteur.cylindre),
