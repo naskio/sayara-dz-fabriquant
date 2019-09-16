@@ -49,7 +49,7 @@ class View extends React.PureComponent {
             openDrawer: true,
             openLogoutDialog: false,
             openPopupNotifs: false,
-            refreshing: false,
+            refreshing: true,
         };
     }
 
@@ -65,7 +65,6 @@ class View extends React.PureComponent {
         const {match, setTitle, setIsLoaded, isLoaded} = this.props;
         const {params: {page = Object.entries(routes)[0][0]}} = match;
         setTitle(`Sayara Dz - ${routes[page].label}`);
-
         if (!isLoaded) {
             setIsLoaded(true);
             const {
@@ -81,17 +80,23 @@ class View extends React.PureComponent {
                 fetchVehicles,
                 fetchOrders,
             } = this.props;
-            fetchProfile();
-            fetchModels();
-            fetchVersions();
-            fetchCategories();
-            fetchOptions();
-            fetchColors();
-            fetchImages();
-            fetchVideos();
-            fetchPricing();
-            fetchVehicles();
-            fetchOrders();
+            Promise.all([
+                fetchProfile(),
+                fetchModels(),
+                fetchVersions(),
+                fetchCategories(),
+                fetchOptions(),
+                fetchColors(),
+                fetchImages(),
+                fetchVideos(),
+                fetchPricing(),
+                fetchVehicles(),
+                fetchOrders(),
+            ]).then(() => {
+                this.setState({refreshing: false});
+            });
+        } else {
+            this.setState({refreshing: false});
         }
     }
 
@@ -295,12 +300,18 @@ class View extends React.PureComponent {
                 </Drawer>
 
                 {/*Main Content*/}
-                <main className={classes.content}>
+                {!refreshing && <main className={classes.content}>
                     <div className={classes.appBarSpacer}/>
                     {
                         React.createElement(routes[page].component)
                     }
-                </main>
+                </main>}
+                {
+                    refreshing &&
+                    <div className="container d-flex flex-column justify-content-center align-items-center">
+                        <CircularProgress color='secondary'/>
+                    </div>
+                }
             </div>
         );
     }

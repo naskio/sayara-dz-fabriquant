@@ -4,6 +4,7 @@ import {setAuthorizationToken} from "../../utils/axios";
 import {setConfigAction} from "../actions/config";
 import {setUserAction} from "../actions/user";
 import {setSessionToken} from "../../utils/session";
+import {setIsLoaded} from "./config";
 
 export const login = (data) => dispatch => {
     const {password, username, remember_me} = data;
@@ -25,6 +26,7 @@ export const logout = () => dispatch => {
     setAuthorizationToken();
     setSessionToken();
     dispatch(setUserAction({token: ''}));
+    dispatch(setIsLoaded(false));
 };
 
 export const fetchProfile = () => dispatch => {
